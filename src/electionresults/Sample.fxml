@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="448.0" prefWidth="675.0" type="HBox" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="448.0" prefWidth="197.0" HBox.hgrow="ALWAYS">
+         <children>
+            <Label />
+            <ImageView fitHeight="288.0" fitWidth="205.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../ipcmapa.png" />
+               </image></ImageView>
+            <ChoiceBox fx:id="choiceBox" prefWidth="150.0" />
+         </children>
+      </VBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="448.0" prefWidth="228.0" HBox.hgrow="ALWAYS">
+         <children>
+            <TableView prefHeight="448.0" prefWidth="375.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="448.0" prefWidth="277.0" HBox.hgrow="ALWAYS">
+         <children>
+            <PieChart />
+            <BarChart fx:id="charterino" prefHeight="150.0" prefWidth="193.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
+         </children>
+      </VBox>
+   </children>
+</fx:root>
