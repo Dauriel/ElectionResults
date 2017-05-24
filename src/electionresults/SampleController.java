@@ -5,12 +5,16 @@
  */
 package electionresults;
 
+import com.jfoenix.controls.JFXComboBox;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
@@ -20,15 +24,21 @@ import javafx.scene.layout.HBox;
  */
 public class SampleController extends HBox {
 
-    @FXML
-    private BarChart<?, ?> charterino;
     final static String austria = "Austria";
     final static String brazil = "Brazil";
     final static String france = "France";
     final static String italy = "Italy";
     final static String usa = "USA";
     @FXML
-    private ChoiceBox<String> choiceBox;
+    private ImageView imageBox;
+    @FXML
+    private Label mapLabel;
+    @FXML
+    private JFXComboBox<?> regionBox;
+    @FXML
+    private PieChart pie;
+    @FXML
+    private BarChart<?, ?> bar;
 
     public SampleController() {
 
@@ -48,8 +58,7 @@ public class SampleController extends HBox {
             series1.getData().add(new XYChart.Data(france, 10000));
             series1.getData().add(new XYChart.Data(italy, 35407.15));
             series1.getData().add(new XYChart.Data(usa, 12000));
-            charterino.getData().add(series1);
-            choiceBox.getItems().addAll("Hola");
+            bar.getData().add(series1);
 
         }
 

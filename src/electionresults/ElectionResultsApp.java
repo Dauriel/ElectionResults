@@ -22,6 +22,7 @@ public class ElectionResultsApp extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
         
         Scene scene = new Scene(root);
+        Data aux = new Data(1995);
         
         stage.setScene(scene);
         stage.setTitle("Election Results");
