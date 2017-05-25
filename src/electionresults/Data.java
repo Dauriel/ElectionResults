@@ -30,6 +30,7 @@ public class Data {
     private Set<String> alicante = new HashSet<String>();
     private Set<RegionResults> resultadosregion = new HashSet<RegionResults>();
     private Set<RegionResults> resultadosprovincia = new HashSet<RegionResults>();
+    
     public Data(int year) {
         electionresults = DataAccessLayer.getElectionResults(year);
         cvinfo = electionresults.getGlobalResults();

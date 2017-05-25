@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root alignment="TOP_CENTER" type="HBox" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.28436516264428124, 0.6432318992654774" focusTraversable="true" prefHeight="547.0" prefWidth="675.0" styleClass="background" stylesheets="@palette.css" HBox.hgrow="ALWAYS">
+      <items>
+        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="275.0">
+          <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="595.0" prefWidth="224.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                  <Label alignment="CENTER" minWidth="60.0" prefHeight="27.0" prefWidth="208.0" style="&#10;" text="Comunitat Valenciana" textAlignment="CENTER" textFill="#2b273f">
+                    <font>
+                      <Font name="SansSerif Bold Italic" size="18.0" fx:id="x1" />
+                    </font>
+                           <padding>
+                              <Insets top="40.0" />
+                           </padding>
+                  </Label>
+                        <ImageView fx:id="mapImg" fitHeight="412.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <JFXComboBox fx:id="regionBox">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </JFXComboBox>
+                     </children>
+                  </VBox>
+          </children>
+        </AnchorPane>
+      <AnchorPane id="Content" prefHeight="595.0" prefWidth="318.0">
+               <children>
+                  <VBox prefHeight="595.0" prefWidth="321.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TableView fx:id="summaryTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="176.0" prefWidth="321.0" stylesheets="@tableview.css">
+                          <columns>
+                            <TableColumn fx:id="summaryCol" prefWidth="95.0" text="Summary" />
+                            <TableColumn fx:id="numbersCol" prefWidth="126.0" />
+                              <TableColumn fx:id="totalpercentageCol" prefWidth="112.0" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <TableView fx:id="partyTable" prefHeight="419.0" prefWidth="321.0" stylesheets="@tableview.css" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn fx:id="partyCol" prefWidth="99.0" text="Party" />
+                            <TableColumn fx:id="seatsCol" prefWidth="78.0" text="Seats" />
+                              <TableColumn fx:id="votesCol" prefWidth="98.0" text="Votes" />
+                              <TableColumn fx:id="percentageCol" prefWidth="59.0" text="\%" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+      </AnchorPane>
+        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="418.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="337.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <PieChart fx:id="pie" prefHeight="296.0" prefWidth="241.0" title="Seats distribution for Comunitat Valenciana" />
+                        <BarChart fx:id="bar" prefHeight="296.0" prefWidth="241.0" title="Party votes in Comunitat Valenciana">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <Label text="Filter by % of votes" textAlignment="CENTER" textFill="#2b273f">
+                           <font>
+                              <Font name="SansSerif Bold" size="13.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <JFXSlider fx:id="slider" blockIncrement="1.0" indicatorPosition="RIGHT" majorTickUnit="1.0" max="5.0" minorTickCount="0" prefHeight="38.0" prefWidth="209.0" showTickLabels="true" showTickMarks="true" style=".jfx-slider .thumb: #009688;" value="2.5" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+        </AnchorPane>
+      </items>
+      </SplitPane>
+   </children>
+</fx:root>

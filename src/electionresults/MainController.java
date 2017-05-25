@@ -63,7 +63,7 @@ public class MainController implements Initializable {
         for (Tab t : tabPane.getTabs()) {
             try {
                 parseInt(t.getText());
-                t.setContent(new SampleController());
+                t.setContent(new DashboardController());
             } catch (Exception e) {
             }
 
