@@ -30,9 +30,23 @@ public class Data {
     private Set<String> alicante = new HashSet<String>();
     private Set<RegionResults> resultadosregion = new HashSet<RegionResults>();
     private Set<RegionResults> resultadosprovincia = new HashSet<RegionResults>();
+   
+    public Set<String> getValencia() {
+        return valencia;
+    }
+    public Set<String> getCastellon() {
+        return castellon;
+    }
+    public Set<String> getAlicante() {
+        return alicante;
+    } 
+    public Set<String> getComunidad() {
+        return comunidad;
+    }
     
     public Data(int year) {
         electionresults = DataAccessLayer.getElectionResults(year);
+        comunidad = electionresults.getRegionProvinces().keySet();
         cvinfo = electionresults.getGlobalResults();
         for (Map.Entry<String, String> entry : electionresults.getRegionProvinces().entrySet()) {
             String aux = entry.getValue();

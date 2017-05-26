@@ -5,18 +5,18 @@
  */
 package electionresults;
 
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXTabPane;
+import electionresults.model.PartyResults;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -29,7 +29,9 @@ import javafx.scene.text.Font;
 public class DashboardController extends HBox {
 
     @FXML
-    private JFXComboBox<?> regionBox;
+    private HBox hbox;
+    @FXML
+    private ChoiceBox<String> regionBox;
     @FXML
     private PieChart pie;
     @FXML
@@ -47,20 +49,23 @@ public class DashboardController extends HBox {
     @FXML
     private TableColumn<?, ?> totalpercentageCol;
     @FXML
-    private TableView<?> partyTable;
+    private TableView<PartyResults> partyTable;
     @FXML
-    private TableColumn<?, ?> partyCol;
+    private TableColumn<PartyResults, String> partyCol;
     @FXML
-    private TableColumn<?, ?> seatsCol;
+    private TableColumn<PartyResults, Integer> seatsCol;
     @FXML
-    private TableColumn<?, ?> votesCol;
+    private TableColumn<PartyResults, Integer> votesCol;
     @FXML
-    private TableColumn<?, ?> percentageCol;
+    private TableColumn<PartyResults, Double> percentageCol;
     @FXML
     private JFXSlider slider;
 
-    public DashboardController() {
+    private int year;
+    private JFXTabPane tabPane;
+    private Data d;
 
+    public DashboardController(int datos) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -69,7 +74,38 @@ public class DashboardController extends HBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        d = new Data(datos);
+        regionSetter("comunidad");
+    }
 
+    private void initColPartyTable() {
+        partyCol.setCellValueFactory(new PropertyValueFactory<>("party"));
+        seatsCol.setCellValueFactory(new PropertyValueFactory<>("seats"));
+        votesCol.setCellValueFactory(new PropertyValueFactory<>("votes"));
+        percentageCol.setCellValueFactory(new PropertyValueFactory<>("percentage"));
+    }
+
+    private void loadDataPartyTable() {
+        //need to finish
+    }
+
+    private void regionSetter(String s) {
+        if (s.equals("comunidad")) {
+            regionBox.getItems().clear();
+            regionBox.getItems().addAll(d.getComunidad());
+        } else if (s.equals("valencia")) {
+            regionBox.getItems().clear();
+            regionBox.getItems().addAll(d.getValencia());
+        } else if (s.equals("castellon")) {
+            regionBox.getItems().clear();
+            regionBox.getItems().addAll(d.getCastellon());
+        } else {
+            regionBox.getItems().clear();
+            regionBox.getItems().addAll(d.getAlicante());
         }
+    }
+
+    private void pieSetter() {
 
     }
+}
