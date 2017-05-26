@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_CENTER" type="HBox" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.28436516264428124, 0.6432318992654774" focusTraversable="true" prefHeight="547.0" prefWidth="675.0" styleClass="background" stylesheets="@palette.css" HBox.hgrow="ALWAYS">
       <items>
@@ -112,4 +112,4 @@
       </items>
       </SplitPane>
    </children>
-</fx:root>
+</HBox>
