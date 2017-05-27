@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -23,12 +24,10 @@ public class ElectionResultsApp extends Application {
         
         Scene scene = new Scene(root);
         Data aux = new Data(1995);
-        
+        stage.getIcons().add(new Image("/images/Logo.png"));
         stage.setScene(scene);
         stage.setTitle("Election Results");
         stage.show();
-        /*stage.setScene(new Scene( new SampleController()) );
-        stage.show();*/
     }
 
     /**
