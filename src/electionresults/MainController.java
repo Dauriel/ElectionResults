@@ -34,6 +34,7 @@ public class MainController implements Initializable {
     private int year;
     @FXML
     private JFXTabPane tabPane;
+    DashboardController c;
 
     /**
      * Initializes the controller class.
