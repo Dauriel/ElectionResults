@@ -43,10 +43,12 @@ public class MainController implements Initializable {
 
         //Setting task with spinner and veil 
         veil.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6)");
-        Task<List<ElectionResults>> task = new DataTask();
+        /*Task<List<ElectionResults>> task = new DataTask();
         veil.visibleProperty().bind(task.runningProperty());
         spinner.visibleProperty().bind(task.runningProperty());
-        new Thread(task).start();
+        new Thread(task).start();*/
+        veil.setVisible(false);
+        spinner.setVisible(false);
 
         //Get ElectionResults of the year of the selectedtab
         year = Integer.parseInt(tabPane.getSelectionModel().getSelectedItem().getText());
