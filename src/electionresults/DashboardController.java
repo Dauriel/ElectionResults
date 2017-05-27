@@ -31,7 +31,7 @@ public class DashboardController extends HBox {
     @FXML
     private HBox hbox;
     @FXML
-    private ChoiceBox<String> regionBox;
+    private JFXComboBox<String> regionBox;
     @FXML
     private PieChart pie;
     @FXML
