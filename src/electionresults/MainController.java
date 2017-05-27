@@ -59,13 +59,13 @@ public class MainController implements Initializable {
         }*/
         //tab1999.setContent((Node) FXMLLoader.load(this.getClass().getResource("Sample.fxml")));
         for (Tab t : tabPane.getTabs()) {
-            DashboardController c;
-            
             try {
-                parseInt(t.getText());
-                c = new DashboardController();                
+                int x = parseInt(t.getText());
+                c = new DashboardController(x);                
                 t.setContent(c);
-            } catch (NumberFormatException e) {} 
+            } catch (NumberFormatException e) {
+                System.out.println("Historical not yet implemented");
+            }
 
         }
     }
