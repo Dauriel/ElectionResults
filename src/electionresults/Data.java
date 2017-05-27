@@ -9,6 +9,7 @@ import electionresults.model.ElectionResults;
 import electionresults.model.RegionResults;
 import electionresults.persistence.io.DataAccessLayer;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javafx.collections.ObservableList;
@@ -20,18 +21,17 @@ import javafx.scene.chart.XYChart;
  * @author PABLO
  */
 public class Data {
-
-    private ElectionResults electionresults;
+    private ElectionResults electionResult;
+    private Set<String> comunidad = new HashSet<String>();
     private ObservableList<PieChart.Data> pieData;
     private XYChart.Series<Double, Double> barData;
     private RegionResults cvinfo;
+    
     private Set<String> valencia = new HashSet<String>();
     private Set<String> castellon = new HashSet<String>();
     private Set<String> alicante = new HashSet<String>();
-    private Set<RegionResults> resultadosregion = new HashSet<RegionResults>();
-    private Set<RegionResults> resultadosprovincia = new HashSet<RegionResults>();
-    private final Set<String> comunidad;
-   
+    private int x;
+
     public Set<String> getValencia() {
         return valencia;
     }
@@ -40,16 +40,20 @@ public class Data {
     }
     public Set<String> getAlicante() {
         return alicante;
-    } 
+    }
+    
+
     public Set<String> getComunidad() {
         return comunidad;
     }
-    
+
     public Data(int year) {
-        electionresults = DataAccessLayer.getElectionResults(year);
-        comunidad = electionresults.getRegionProvinces().keySet();
-        cvinfo = electionresults.getGlobalResults();
-        for (Map.Entry<String, String> entry : electionresults.getRegionProvinces().entrySet()) {
+        x = year;
+        electionResult = DataAccessLayer.getElectionResults(x);
+        comunidad = electionResult.getProvinces().keySet();
+
+        cvinfo = electionResult.getGlobalResults();
+        for (Map.Entry<String, String> entry : electionResult.getRegionProvinces().entrySet()) {
             String aux = entry.getValue();
             if (aux.equals("Valencia")) {
                 valencia.add(entry.getKey());
@@ -59,5 +63,8 @@ public class Data {
                 alicante.add(entry.getKey());
             }
         }
+        
+        
+
     }
 }
