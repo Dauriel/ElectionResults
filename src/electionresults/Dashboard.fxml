@@ -25,7 +25,7 @@
           <children>
                   <VBox alignment="TOP_CENTER" prefHeight="595.0" prefWidth="224.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                  <Label alignment="CENTER" minWidth="60.0" prefHeight="27.0" prefWidth="208.0" style="&#10;" text="Comunitat Valenciana" textAlignment="CENTER" textFill="#2b273f">
+                  <Label fx:id="mapLabel" alignment="CENTER" minWidth="60.0" prefHeight="27.0" prefWidth="208.0" style="&#10;" text="Comunitat Valenciana" textAlignment="CENTER" textFill="#2b273f">
                     <font>
                       <Font name="SansSerif Bold Italic" size="18.0" fx:id="x1" />
                     </font>
