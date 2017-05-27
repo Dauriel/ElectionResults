@@ -36,6 +36,9 @@ public class Data {
     private Set<String> alicante = new HashSet<String>();
     private List<PartyResults> listaResultadosGlobales;
     private Map<String, Integer> resultadosGlobales = new HashMap<String, Integer>();
+    private Map<String, Integer> resultadosValencia = new HashMap<String, Integer>();
+    private Map<String, Integer> resultadosAlicante = new HashMap<String, Integer>();
+    private Map<String, Integer> resultadosCastellon = new HashMap<String, Integer>();
     private int x;
 
     public Set<String> getValencia() {
@@ -61,8 +64,7 @@ public class Data {
     public Data(int year) {
         x = year;
         electionResult = DataAccessLayer.getElectionResults(x);
-        comunidad = electionResult.getRegionProvinces().keySet();
-
+        comunidad = electionResult.getRegionProvinces().keySet();        
         cvinfo = electionResult.getGlobalResults();
         for (Map.Entry<String, String> entry : electionResult.getRegionProvinces().entrySet()) {
             String aux = entry.getValue();
@@ -76,10 +78,30 @@ public class Data {
         }
         listaResultadosGlobales = cvinfo.getPartyResultsSorted();
         for (PartyResults p : listaResultadosGlobales) {
-            resultadosGlobales.put(p.getParty()+ " (" + p.getSeats() + ")", p.getSeats());
+            resultadosGlobales.put(p.getParty(), p.getSeats());
         }
-        System.out.println(resultadosGlobales.toString());
+        
+        for (PartyResults p : electionResult.getProvinceResults("Valencia").getPartyResultsSorted()) {
+            resultadosValencia.put(p.getParty(), p.getSeats());
+        }
+        for (PartyResults p : electionResult.getProvinceResults("Castellón").getPartyResultsSorted()) {
+            resultadosCastellon.put(p.getParty(), p.getSeats());
+        }
+        for (PartyResults p : electionResult.getProvinceResults("Alicante").getPartyResultsSorted()) {
+            resultadosAlicante.put(p.getParty(), p.getSeats());
+        }
+    }
 
+    public Map<String, Integer> getResultadosValencia() {
+        return resultadosValencia;
+    }
+
+    public Map<String, Integer> getResultadosAlicante() {
+        return resultadosAlicante;
+    }
+
+    public Map<String, Integer> getResultadosCastellon() {
+        return resultadosCastellon;
     }
 
     public Map<String, Integer> getResultadosGlobales() {
@@ -89,7 +111,8 @@ public class Data {
     public ObservableList<PieChart.Data> getPieData(Map<String, Integer> aux) {
         pieData = FXCollections.observableArrayList();
         for (String s : aux.keySet()) {
-            pieData.add(new PieChart.Data(s,aux.get(s)));
+            int seats = aux.get(s);
+            pieData.add(new PieChart.Data(s + " (" + seats + ")",seats));
         }
         return pieData;
     }

@@ -29,8 +29,6 @@ import javafx.scene.text.Font;
 public class DashboardController extends HBox {
 
     @FXML
-    private HBox hbox;
-    @FXML
     private JFXComboBox<String> regionBox;
     @FXML
     private PieChart pie;
@@ -108,9 +106,7 @@ public class DashboardController extends HBox {
         }
     }
 
-    private void pieSetter() {
-
-    }
+    
     private void initListeners(){
         regionBox.setOnAction(e -> loadRegionBox());
     }
