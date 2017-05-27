@@ -19,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 /**
@@ -36,8 +37,6 @@ public class DashboardController extends HBox {
     private BarChart<?, ?> bar;
     @FXML
     private Font x1;
-    @FXML
-    private ImageView mapImg;
     @FXML
     private TableView<?> summaryTable;
     @FXML
@@ -62,6 +61,18 @@ public class DashboardController extends HBox {
     private JFXTabPane tabPane;
     private Data d;
     private int aux;
+    @FXML
+    private Pane region1Layer;
+    @FXML
+    private ImageView region1Image;
+    @FXML
+    private Pane region2Layer;
+    @FXML
+    private ImageView region2Image;
+    @FXML
+    private Pane region3Layer;
+    @FXML
+    private ImageView region3Image;
 
     public DashboardController(int datos) {
         aux = datos;

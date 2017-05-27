@@ -14,6 +14,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -33,11 +35,25 @@
                               <Insets top="40.0" />
                            </padding>
                   </Label>
-                        <ImageView fx:id="mapImg" fitHeight="412.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </ImageView>
+                        <StackPane>
+                           <children>
+                              <Pane fx:id="region1Layer" StackPane.alignment="CENTER">
+                                 <children>
+                                    <ImageView fx:id="region1Image" fitHeight="412.0" fitWidth="200.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="region2Layer">
+                                 <children>
+                                    <ImageView fx:id="region2Image" fitHeight="412.0" fitWidth="200.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="region3Layer">
+                                 <children>
+                                    <ImageView fx:id="region3Image" fitHeight="412.0" fitWidth="200.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </StackPane>
                         <JFXComboBox fx:id="regionBox" promptText="Choose Region">
                            <VBox.margin>
                               <Insets top="10.0" />
