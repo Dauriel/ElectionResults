@@ -34,10 +34,6 @@ public class MainController implements Initializable {
     private int year;
     @FXML
     private JFXTabPane tabPane;
-    @FXML
-    private Tab tab1995;
-    @FXML
-    private Tab tab1999;
 
     /**
      * Initializes the controller class.
@@ -61,12 +57,13 @@ public class MainController implements Initializable {
         }*/
         //tab1999.setContent((Node) FXMLLoader.load(this.getClass().getResource("Sample.fxml")));
         for (Tab t : tabPane.getTabs()) {
+            DashboardController c;
+            
             try {
-                c = new DashboardController(parseInt(t.getText()));                
+                parseInt(t.getText());
+                c = new DashboardController();                
                 t.setContent(c);
-            } catch (NumberFormatException e) {
-                System.out.println("Historical not yet implemented");
-            } 
+            } catch (NumberFormatException e) {} 
 
         }
     }

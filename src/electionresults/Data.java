@@ -30,6 +30,7 @@ public class Data {
     private Set<String> alicante = new HashSet<String>();
     private Set<RegionResults> resultadosregion = new HashSet<RegionResults>();
     private Set<RegionResults> resultadosprovincia = new HashSet<RegionResults>();
+    private final Set<String> comunidad;
    
     public Set<String> getValencia() {
         return valencia;

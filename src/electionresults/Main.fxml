@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <StackPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="electionresults.MainController">
    <children>
@@ -44,7 +56,66 @@
             </Tab>
             <Tab text="Historical Evolution">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane>
+                     <children>
+                        <VBox prefHeight="547.0" prefWidth="675.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <BarChart fx:id="barChart" title="Participation (%)">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </BarChart>
+                              <HBox>
+                                 <children>
+                                    <GridPane fx:id="gridPane" alignment="CENTER">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <padding>
+                                          <Insets bottom="20.0" left="20.0" />
+                                       </padding>
+                                       <children>
+                                          <JFXButton fx:id="button1" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" ripplerFill="#008f81f3" />
+                                          <JFXButton fx:id="button2" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="30.0" layoutY="10.0" ripplerFill="#008f81f3" GridPane.columnIndex="1" />
+                                          <JFXButton fx:id="button3" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="30.0" layoutY="10.0" ripplerFill="#008f81f3" GridPane.rowIndex="1" />
+                                          <JFXButton fx:id="button4" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="30.0" layoutY="10.0" ripplerFill="#008f81f3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <JFXButton fx:id="button5" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="30.0" layoutY="10.0" ripplerFill="#008f81f3" GridPane.rowIndex="2" />
+                                          <JFXButton fx:id="button6" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="30.0" layoutY="10.0" ripplerFill="#008f81f3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <JFXButton fx:id="button7" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="30.0" layoutY="10.0" ripplerFill="#008f81f3" GridPane.rowIndex="3" />
+                                          <JFXButton fx:id="button8" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="30.0" layoutY="10.0" ripplerFill="#008f81f3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                       </children>
+                                    </GridPane>
+                                    <StackedBarChart fx:id="stackedBarChart" title="Seats">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </StackedBarChart>
+                                    <LineChart fx:id="lineChart" title="Votes">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
               </content>
             </Tab>
          </tabs>

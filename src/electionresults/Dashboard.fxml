@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_CENTER" type="HBox" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.28436516264428124, 0.6432318992654774" focusTraversable="true" prefHeight="547.0" prefWidth="675.0" styleClass="background" stylesheets="@palette.css" HBox.hgrow="ALWAYS">
+      <SplitPane dividerPositions="0.28436516264428124, 0.6432318992654774" focusTraversable="true" styleClass="background" stylesheets="@palette.css" HBox.hgrow="ALWAYS">
       <items>
         <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="275.0">
           <children>
@@ -38,7 +38,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </ImageView>
-                        <JFXComboBox fx:id="regionBox">
+                        <JFXComboBox fx:id="regionBox" promptText="Choose Region">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -112,4 +112,4 @@
       </items>
       </SplitPane>
    </children>
-</HBox>
+</fx:root>

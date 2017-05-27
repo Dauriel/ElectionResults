@@ -5,6 +5,7 @@
  */
 package electionresults;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTabPane;
 import electionresults.model.PartyResults;
@@ -13,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -31,7 +31,7 @@ public class DashboardController extends HBox {
     @FXML
     private HBox hbox;
     @FXML
-    private ChoiceBox<String> regionBox;
+    private JFXComboBox<String> regionBox;
     @FXML
     private PieChart pie;
     @FXML
@@ -65,7 +65,7 @@ public class DashboardController extends HBox {
     private JFXTabPane tabPane;
     private Data d;
 
-    public DashboardController(int datos) {
+    public DashboardController() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -74,8 +74,8 @@ public class DashboardController extends HBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        d = new Data(datos);
-        regionSetter("comunidad");
+       // d = new Data(datos);
+//        regionSetter("comunidad");
     }
 
     private void initColPartyTable() {
@@ -89,21 +89,21 @@ public class DashboardController extends HBox {
         //need to finish
     }
 
-    private void regionSetter(String s) {
-        if (s.equals("comunidad")) {
-            regionBox.getItems().clear();
-            regionBox.getItems().addAll(d.getComunidad());
-        } else if (s.equals("valencia")) {
-            regionBox.getItems().clear();
-            regionBox.getItems().addAll(d.getValencia());
-        } else if (s.equals("castellon")) {
-            regionBox.getItems().clear();
-            regionBox.getItems().addAll(d.getCastellon());
-        } else {
-            regionBox.getItems().clear();
-            regionBox.getItems().addAll(d.getAlicante());
-        }
-    }
+//    private void regionSetter(String s) {
+//        if (s.equals("comunidad")) {
+//            regionBox.getItems().clear();
+//            regionBox.getItems().addAll(d.getComunidad());
+//        } else if (s.equals("valencia")) {
+//            regionBox.getItems().clear();
+//            regionBox.getItems().addAll(d.getValencia());
+//        } else if (s.equals("castellon")) {
+//            regionBox.getItems().clear();
+//            regionBox.getItems().addAll(d.getCastellon());
+//        } else {
+//            regionBox.getItems().clear();
+//            regionBox.getItems().addAll(d.getAlicante());
+//        }
+//    }
 
     private void pieSetter() {
 
