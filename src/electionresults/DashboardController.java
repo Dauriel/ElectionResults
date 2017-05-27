@@ -86,7 +86,7 @@ public class DashboardController extends HBox {
         regionSetter("Comunidad");
         initListeners();
         pie.setData(d.getPieData(d.getResultadosGlobales()));
-        initImage();
+        initImage();        
     }
 
     private void initColPartyTable() {
@@ -102,18 +102,22 @@ public class DashboardController extends HBox {
 
     private void regionSetter(String s) {
         if (s.equals("Comunidad")) {
+            pie.setTitle("Seats Distribution for Comunidad Valenciana");
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getComunidad());
             mapLabel.setText("Comunidad Valenciana");
         } else if (s.equals("Valencia")) {
+            pie.setTitle("Seats Distribution for Valencia");
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getValencia());
             mapLabel.setText("Valencia");
         } else if (s.equals("Castellon")) {
+            pie.setTitle("Seats Distribution for Castellón");
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getCastellon());
             mapLabel.setText("Castellón");
         } else {
+            pie.setTitle("Seats Distribution for Alicante");
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getAlicante());
             mapLabel.setText("Alicante");
