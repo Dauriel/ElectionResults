@@ -37,7 +37,7 @@ public class DashboardController extends HBox {
     @FXML
     private PieChart pie;
     @FXML
-    private BarChart<?, ?> bar;
+    private BarChart<String, Integer> bar;
     @FXML
     private Font x1;
     @FXML
@@ -85,6 +85,7 @@ public class DashboardController extends HBox {
         d = new Data(aux);
         regionSetter("Comunidad");
         initListeners();
+        bar.setData(d.getBarData(d.getPartidoAnyoGlobal()));
         pie.setData(d.getPieData(d.getResultadosGlobales()));
         initImage();        
     }
@@ -102,21 +103,25 @@ public class DashboardController extends HBox {
 
     private void regionSetter(String s) {
         if (s.equals("Comunidad")) {
+            bar.setTitle("Party votes in Comunidad Valenciana");
             pie.setTitle("Seats Distribution for Comunidad Valenciana");
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getComunidad());
             mapLabel.setText("Comunidad Valenciana");
         } else if (s.equals("Valencia")) {
+            bar.setTitle("Party votes in Valencia");
             pie.setTitle("Seats Distribution for Valencia");
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getValencia());
             mapLabel.setText("Valencia");
         } else if (s.equals("Castellon")) {
+            bar.setTitle("Party votes in Castellón");
             pie.setTitle("Seats Distribution for Castellón");
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getCastellon());
             mapLabel.setText("Castellón");
         } else {
+            bar.setTitle("Party votes in Alicante");
             pie.setTitle("Seats Distribution for Alicante");
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getAlicante());
@@ -130,7 +135,7 @@ public class DashboardController extends HBox {
 
     private void loadRegionBox() {
         String regionSelected = regionBox.getSelectionModel().getSelectedItem();
-        System.out.println(regionSelected);
+        bar.setTitle("Party votes in " + regionSelected);
     }
 
     private void initImage() {
