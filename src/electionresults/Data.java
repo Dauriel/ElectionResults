@@ -6,12 +6,15 @@
 package electionresults;
 
 import electionresults.model.ElectionResults;
+import electionresults.model.PartyResults;
 import electionresults.model.RegionResults;
 import electionresults.persistence.io.DataAccessLayer;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
@@ -21,36 +24,44 @@ import javafx.scene.chart.XYChart;
  * @author PABLO
  */
 public class Data {
+
     private ElectionResults electionResult;
     private Set<String> comunidad = new HashSet<String>();
     private ObservableList<PieChart.Data> pieData;
     private XYChart.Series<Double, Double> barData;
     private RegionResults cvinfo;
-    
+
     private Set<String> valencia = new HashSet<String>();
     private Set<String> castellon = new HashSet<String>();
     private Set<String> alicante = new HashSet<String>();
+    private List<PartyResults> listaResultadosGlobales;
+    private Map<String, Integer> resultadosGlobales = new HashMap<String, Integer>();
     private int x;
 
     public Set<String> getValencia() {
         return valencia;
     }
+
     public Set<String> getCastellon() {
         return castellon;
     }
+
     public Set<String> getAlicante() {
         return alicante;
     }
-    
 
     public Set<String> getComunidad() {
         return comunidad;
     }
 
+    public List<PartyResults> getListaResultadosGlobales() {
+        return listaResultadosGlobales;
+    }
+
     public Data(int year) {
         x = year;
         electionResult = DataAccessLayer.getElectionResults(x);
-        comunidad = electionResult.getProvinces().keySet();
+        comunidad = electionResult.getRegionProvinces().keySet();
 
         cvinfo = electionResult.getGlobalResults();
         for (Map.Entry<String, String> entry : electionResult.getRegionProvinces().entrySet()) {
@@ -63,8 +74,23 @@ public class Data {
                 alicante.add(entry.getKey());
             }
         }
-        
-        
+        listaResultadosGlobales = cvinfo.getPartyResultsSorted();
+        for (PartyResults p : listaResultadosGlobales) {
+            resultadosGlobales.put(p.getParty()+ " (" + p.getSeats() + ")", p.getSeats());
+        }
+        System.out.println(resultadosGlobales.toString());
 
+    }
+
+    public Map<String, Integer> getResultadosGlobales() {
+        return resultadosGlobales;
+    }
+
+    public ObservableList<PieChart.Data> getPieData(Map<String, Integer> aux) {
+        pieData = FXCollections.observableArrayList();
+        for (String s : aux.keySet()) {
+            pieData.add(new PieChart.Data(s,aux.get(s)));
+        }
+        return pieData;
     }
 }

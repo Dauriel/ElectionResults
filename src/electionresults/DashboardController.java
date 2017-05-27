@@ -76,7 +76,9 @@ public class DashboardController extends HBox {
             throw new RuntimeException(exception);
         }
         d = new Data(aux);
-        regionSetter("comunidad");
+        regionSetter("Comunidad");
+        initListeners();
+        pie.setData(d.getPieData(d.getResultadosGlobales()));
     }
 
     private void initColPartyTable() {
@@ -91,14 +93,13 @@ public class DashboardController extends HBox {
     }
 
     private void regionSetter(String s) {
-        if (s.equals("comunidad")) {
-            System.out.println(d.getComunidad().toString());
+        if (s.equals("Comunidad")) {
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getComunidad());
-        } else if (s.equals("valencia")) {
+        } else if (s.equals("Valencia")) {
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getValencia());
-        } else if (s.equals("castellon")) {
+        } else if (s.equals("Castellon")) {
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getCastellon());
         } else {
@@ -110,4 +111,13 @@ public class DashboardController extends HBox {
     private void pieSetter() {
 
     }
+    private void initListeners(){
+        regionBox.setOnAction(e -> loadRegionBox());
+    }
+    
+    private void loadRegionBox(){
+        String regionSelected = regionBox.getSelectionModel().getSelectedItem();
+        System.out.println(regionSelected);
+    }
+    
 }

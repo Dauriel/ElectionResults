@@ -65,7 +65,7 @@ public class MainController implements Initializable {
                 c = new DashboardController(x);                
                 t.setContent(c);
             } catch (NumberFormatException e) {
-                System.out.println("Historical not yet implemented");
+               
             }
 
         }
