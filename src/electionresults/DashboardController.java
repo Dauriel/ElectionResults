@@ -17,9 +17,11 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
 /**
@@ -62,17 +64,10 @@ public class DashboardController extends HBox {
     private Data d;
     private int aux;
     @FXML
-    private Pane region1Layer;
-    @FXML
-    private ImageView region1Image;
-    @FXML
-    private Pane region2Layer;
-    @FXML
-    private ImageView region2Image;
-    @FXML
-    private Pane region3Layer;
-    @FXML
-    private ImageView region3Image;
+    private StackPane stackPane;
+    private int counter1 = 0;
+    private int counter2 = 0;
+    private int counter3 = 0;
 
     public DashboardController(int datos) {
         aux = datos;
@@ -88,6 +83,7 @@ public class DashboardController extends HBox {
         regionSetter("Comunidad");
         initListeners();
         pie.setData(d.getPieData(d.getResultadosGlobales()));
+        initImage();
     }
 
     private void initColPartyTable() {
@@ -117,14 +113,116 @@ public class DashboardController extends HBox {
         }
     }
 
-    
-    private void initListeners(){
+    private void initListeners() {
         regionBox.setOnAction(e -> loadRegionBox());
     }
-    
-    private void loadRegionBox(){
+
+    private void loadRegionBox() {
         String regionSelected = regionBox.getSelectionModel().getSelectedItem();
         System.out.println(regionSelected);
     }
-    
+
+    private void initImage() {
+        Pane region1Layer = new Pane();
+        Pane region2Layer = new Pane();
+        Pane region3Layer = new Pane();
+
+        // add layers
+        stackPane.getChildren().addAll(region1Layer, region2Layer, region3Layer);
+
+        // load images
+        ImageView region1ImageView = new ImageView(new Image(getClass().getResource("/images/region1.png").toExternalForm()));
+        ImageView region2ImageView = new ImageView(new Image(getClass().getResource("/images/region2.png").toExternalForm()));
+        ImageView region3ImageView = new ImageView(new Image(getClass().getResource("/images/region3.png").toExternalForm()));
+        ImageView region1sImageView = new ImageView(new Image(getClass().getResource("/images/region1s.png").toExternalForm()));
+        ImageView region2sImageView = new ImageView(new Image(getClass().getResource("/images/region2s.png").toExternalForm()));
+        ImageView region3sImageView = new ImageView(new Image(getClass().getResource("/images/region3s.png").toExternalForm()));
+
+        // add images
+        region1Layer.getChildren().add(region1ImageView);
+        region2Layer.getChildren().add(region2ImageView);
+        region3Layer.getChildren().add(region3ImageView);
+        // mouse handler
+        region1Layer.setOnMousePressed(e -> {
+            ImageView temp = (ImageView) region3Layer.getChildren().get(0);
+            if (counter1 == 1) {
+                regionSetter("Comunidad");
+
+                region1Layer.getChildren().clear();
+                region1Layer.getChildren().add(region1ImageView);
+                counter1--;
+            } else {
+                regionSetter("Castellon");
+                region1Layer.getChildren().clear();
+                region1Layer.getChildren().add(region1sImageView);
+                if (counter2 == 1) {
+                    region2Layer.getChildren().clear();
+                    region2Layer.getChildren().add(region2ImageView);
+                    counter2--;
+                }
+                if (counter3 == 1) {
+                    region3Layer.getChildren().clear();
+                    region3Layer.getChildren().add(region3ImageView);
+                    counter3--;
+                }
+                counter1++;
+            }
+        });
+        region2Layer.setOnMousePressed(e -> {
+            ImageView temp = (ImageView) region3Layer.getChildren().get(0);
+            if (counter2 == 1) {
+                regionSetter("Comunidad");
+                region2Layer.getChildren().clear();
+                region2Layer.getChildren().add(region2ImageView);
+                counter2--;
+            } else {
+                regionSetter("Valencia");
+                region2Layer.getChildren().clear();
+                region2Layer.getChildren().add(region2sImageView);
+                if (counter1 == 1) {
+                    region1Layer.getChildren().clear();
+                    region1Layer.getChildren().add(region1ImageView);
+                    counter1--;
+                }
+                if (counter3 == 1) {
+                    region3Layer.getChildren().clear();
+                    region3Layer.getChildren().add(region3ImageView);
+                    counter3--;
+                }
+                counter2++;
+            }
+        });
+        region3Layer.setOnMousePressed(e -> {
+
+            ImageView temp = (ImageView) region3Layer.getChildren().get(0);
+            if (counter3 == 1) {
+                regionSetter("Comunidad");
+                region3Layer.getChildren().clear();
+                region3Layer.getChildren().add(region3ImageView);
+                counter3--;
+            } else {
+                regionSetter("Alicante");
+                region3Layer.getChildren().clear();
+                region3Layer.getChildren().add(region3sImageView);
+                if (counter2 == 1) {
+                    region2Layer.getChildren().clear();
+                    region2Layer.getChildren().add(region2ImageView);
+                    counter2--;
+                }
+                if (counter1 == 1) {
+                    region1Layer.getChildren().clear();
+                    region1Layer.getChildren().add(region1ImageView);
+                    counter1--;
+                }
+                counter3++;
+            }
+
+        });
+
+        // this is the magic that allows you to click on the separate layers, but ONLY(!) as long as the layer is transparent
+        region1Layer.setPickOnBounds(false);
+        region2Layer.setPickOnBounds(false);
+        region3Layer.setPickOnBounds(false);
+    }
+
 }
