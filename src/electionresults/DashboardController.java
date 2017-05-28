@@ -10,6 +10,10 @@ import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTabPane;
 import electionresults.model.PartyResults;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
@@ -136,6 +140,33 @@ public class DashboardController extends HBox {
 
     private void loadRegionBox() {
         String regionSelected = regionBox.getSelectionModel().getSelectedItem();
+        Set<Map<String, ArrayList<String>>> aux;
+        Map<String, ArrayList<String>> elemento2 = new HashMap<String, ArrayList<String>>();
+        Map<Map<String, ArrayList<String>>, Map<String, Integer>> partidos;
+        Set<String> auxv = d.getValencia();
+        Set<String> auxc = d.getCastellon();
+        Set<String> auxa = d.getAlicante();
+        ArrayList<String> arrayaux = new ArrayList<String>();
+        if (auxv.contains(regionSelected)) {
+            aux = d.getComarcaValencia().keySet();
+            partidos = d.getComarcaValencia();
+        } else if (auxc.contains(regionSelected)) {
+            aux = d.getComarcaCastellon().keySet();
+            partidos = d.getComarcaCastellon();
+        } else {
+            aux = d.getComarcaAlicante().keySet();
+            partidos = d.getComarcaAlicante();
+        }
+        for (Map<String, ArrayList<String>> elemento : aux) {
+            for (String s : elemento.keySet()) {
+                if (s.equals(regionSelected)) {
+                    arrayaux = elemento.get(s);
+                    elemento2 = elemento;
+                }
+            }
+        }
+        Map<String, Integer> fini = partidos.get(elemento2);
+        bar.setData(d.getBarData(fini,arrayaux));
         bar.setTitle("Party votes in " + regionSelected);
     }
 
@@ -165,38 +196,39 @@ public class DashboardController extends HBox {
         // mouse handler
 
         region1Layer.setOnMouseEntered(e -> {
-            if (counter1 == 0){
-            region1Layer.getChildren().clear();
-            region1Layer.getChildren().add(region1oImageView);}
+            if (counter1 == 0) {
+                region1Layer.getChildren().clear();
+                region1Layer.getChildren().add(region1oImageView);
+            }
         });
         region1Layer.setOnMouseExited(e -> {
-            if (counter1 == 0){
-            region1Layer.getChildren().clear();
-            region1Layer.getChildren().add(region1ImageView);
+            if (counter1 == 0) {
+                region1Layer.getChildren().clear();
+                region1Layer.getChildren().add(region1ImageView);
             }
         });
         region2Layer.setOnMouseEntered(e -> {
-            if(counter2 == 0){
-            region2Layer.getChildren().clear();
-            region2Layer.getChildren().add(region2oImageView);
+            if (counter2 == 0) {
+                region2Layer.getChildren().clear();
+                region2Layer.getChildren().add(region2oImageView);
             }
         });
         region2Layer.setOnMouseExited(e -> {
-            if(counter2 == 0){
-            region2Layer.getChildren().clear();
-            region2Layer.getChildren().add(region2ImageView);
+            if (counter2 == 0) {
+                region2Layer.getChildren().clear();
+                region2Layer.getChildren().add(region2ImageView);
             }
         });
         region3Layer.setOnMouseEntered(e -> {
-            if (counter3 == 0){
-            region3Layer.getChildren().clear();
-            region3Layer.getChildren().add(region3oImageView);
+            if (counter3 == 0) {
+                region3Layer.getChildren().clear();
+                region3Layer.getChildren().add(region3oImageView);
             }
         });
         region3Layer.setOnMouseExited(e -> {
-            if (counter3 == 0){
-            region3Layer.getChildren().clear();
-            region3Layer.getChildren().add(region3ImageView);
+            if (counter3 == 0) {
+                region3Layer.getChildren().clear();
+                region3Layer.getChildren().add(region3ImageView);
             }
         });
         region1Layer.setOnMousePressed(e -> {

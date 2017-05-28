@@ -20,8 +20,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 
 /**
  *
@@ -52,6 +50,9 @@ public class Data {
     private Map<String, Integer> partidoAnyoValencia = new HashMap<String, Integer>();
     private Map<String, Integer> partidoAnyoCastellon = new HashMap<String, Integer>();
     private Map<String, Integer> partidoAnyoAlicante = new HashMap<String, Integer>();
+    private Map<Map<String, ArrayList<String>>, Map<String, Integer>> comarcaValencia = new HashMap<Map<String,ArrayList<String>>,Map<String, Integer>>();
+    private Map<Map<String, ArrayList<String>>, Map<String, Integer>> comarcaAlicante = new HashMap<Map<String,ArrayList<String>>,Map<String, Integer>>();
+    private Map<Map<String, ArrayList<String>>, Map<String, Integer>> comarcaCastellon = new HashMap<Map<String,ArrayList<String>>,Map<String, Integer>>();
     private int x;
 
     public Set<String> getValencia() {
@@ -112,6 +113,54 @@ public class Data {
             partidoAnyoAlicante.put(p.getParty(), p.getVotes());
             resultadosAlicante.put(p.getParty(), p.getSeats());
         }
+        for (String s : valencia){
+            RegionResults r = electionResult.getRegionResults(s);
+            Map<String, Integer> aux = new HashMap<String, Integer>();
+            Map<String, ArrayList<String>> aux3 = new HashMap<String, ArrayList<String>>();
+            ArrayList<String> aux2= new ArrayList<String>();
+            for(PartyResults p : r.getPartyResultsSorted()){
+               aux.put(p.getParty(), p.getVotes());
+               aux2.add(p.getParty());
+            }
+            aux3.put(s, aux2);
+            comarcaValencia.put(aux3, aux);
+        }
+        for (String s : alicante){
+            RegionResults r = electionResult.getRegionResults(s);
+            Map<String, Integer> aux = new HashMap<String, Integer>();
+            Map<String, ArrayList<String>> aux3 = new HashMap<String, ArrayList<String>>();
+            ArrayList<String> aux2= new ArrayList<String>();
+            for(PartyResults p : r.getPartyResultsSorted()){
+               aux.put(p.getParty(), p.getVotes());
+               aux2.add(p.getParty());
+            }
+            aux3.put(s, aux2);
+            comarcaAlicante.put(aux3, aux);
+        }
+        for (String s : castellon){
+            RegionResults r = electionResult.getRegionResults(s);
+            Map<String, Integer> aux = new HashMap<String, Integer>();
+            Map<String, ArrayList<String>> aux3 = new HashMap<String, ArrayList<String>>();
+            ArrayList<String> aux2= new ArrayList<String>();
+            for(PartyResults p : r.getPartyResultsSorted()){
+               aux.put(p.getParty(), p.getVotes());
+               aux2.add(p.getParty());
+            }
+            aux3.put(s, aux2);
+            comarcaCastellon.put(aux3, aux);
+        }
+    }
+
+    public Map<Map<String, ArrayList<String>>, Map<String, Integer>> getComarcaValencia() {
+        return comarcaValencia;
+    }
+
+    public Map<Map<String, ArrayList<String>>, Map<String, Integer>> getComarcaAlicante() {
+        return comarcaAlicante;
+    }
+
+    public Map<Map<String, ArrayList<String>>, Map<String, Integer>> getComarcaCastellon() {
+        return comarcaCastellon;
     }
 
     public Map<String, Integer> getPartidoAnyoGlobal() {
@@ -200,5 +249,7 @@ public class Data {
     public ArrayList<String> getPartidosenOrdenAlicante() {
         return partidosenOrdenAlicante;
     }
+    
+    
 
 }
