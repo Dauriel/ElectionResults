@@ -25,6 +25,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -206,10 +207,20 @@ public class DashboardController extends HBox {
 
         // add layers
         stackPane.getChildren().addAll(region1Layer, region2Layer, region3Layer);
-
+        
+        //add tooltips
+        Tooltip tooltipCastellon = new Tooltip("Castellón");
+        Tooltip tooltipValencia = new Tooltip("Valencia");
+        Tooltip tooltipAlicante = new Tooltip("Alicante");
+        Tooltip.install(region1Layer,tooltipCastellon);
+        Tooltip.install(region2Layer,tooltipValencia);
+        Tooltip.install(region3Layer,tooltipAlicante);
+        
+        //add images
         region1Layer.getChildren().add(region1ImageView);
         region2Layer.getChildren().add(region2ImageView);
         region3Layer.getChildren().add(region3ImageView);
+        
         // mouse handler
 
         region1Layer.setOnMouseEntered(e -> {
