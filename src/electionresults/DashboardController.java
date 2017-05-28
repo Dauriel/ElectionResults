@@ -96,8 +96,8 @@ public class DashboardController extends HBox {
     private ImageView region2oImageView = new ImageView(new Image(getClass().getResource("/images/region2o.png").toExternalForm()));
     private ImageView region3oImageView = new ImageView(new Image(getClass().getResource("/images/region3o.png").toExternalForm()));
 
-    public DashboardController(int datos) {
-        aux = datos;
+    public DashboardController(Data datos) {
+        d = datos;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -106,7 +106,6 @@ public class DashboardController extends HBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        d = new Data(aux);
         regionSetter("Comunidad");
         initListeners();
         currentBar = d.getGeneral();
