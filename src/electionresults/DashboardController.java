@@ -162,42 +162,12 @@ public class DashboardController extends HBox {
         if (auxv.contains(regionSelected)) {
             aux = d.getComarcaValencia().keySet();
             partidos = d.getComarcaValencia();
-            region1Layer.getChildren().clear();
-            region1Layer.getChildren().add(region1sImageView);
-            region2Layer.getChildren().clear();
-            region2Layer.getChildren().add(region2ImageView);
-            region3Layer.getChildren().clear();
-            region3Layer.getChildren().add(region3ImageView);
-            counter1++;
-            counter2 = 0;
-            counter3 = 0;            
-            regionSetter("Valencia");
         } else if (auxc.contains(regionSelected)) {
             aux = d.getComarcaCastellon().keySet();
-            partidos = d.getComarcaCastellon();
-            region2Layer.getChildren().clear();
-            region2Layer.getChildren().add(region2sImageView);
-            region1Layer.getChildren().clear();
-            region1Layer.getChildren().add(region1ImageView);
-            region3Layer.getChildren().clear();
-            region3Layer.getChildren().add(region3ImageView);
-            counter2++;
-            counter1 = 0;
-            counter3 = 0;
-            regionSetter("Castellon");            
+            partidos = d.getComarcaCastellon();         
         } else {
             aux = d.getComarcaAlicante().keySet();
             partidos = d.getComarcaAlicante();
-            region3Layer.getChildren().clear();
-            region3Layer.getChildren().add(region3sImageView);
-            region2Layer.getChildren().clear();
-            region2Layer.getChildren().add(region2ImageView);
-            region1Layer.getChildren().clear();
-            region1Layer.getChildren().add(region1ImageView);
-            counter3++;
-            counter1 = 0;
-            counter2 = 0;
-            regionSetter("Alicante");
         }
         for (Map<String, ArrayList<String>> elemento : aux) {
             for (String s : elemento.keySet()) {
