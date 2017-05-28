@@ -99,17 +99,17 @@ public class Data {
 
         for (PartyResults p : electionResult.getProvinceResults("Valencia").getPartyResultsSorted()) {
             partidosenOrdenValencia.add(p.getParty());
-            partidoAnyoGlobal.put(p.getParty(), p.getVotes());
+            partidoAnyoValencia.put(p.getParty(), p.getVotes());
             resultadosValencia.put(p.getParty(), p.getSeats());
         }
         for (PartyResults p : electionResult.getProvinceResults("Castellón").getPartyResultsSorted()) {
             partidosenOrdenCastellon.add(p.getParty());
-            partidoAnyoGlobal.put(p.getParty(), p.getVotes());
+            partidoAnyoCastellon.put(p.getParty(), p.getVotes());
             resultadosCastellon.put(p.getParty(), p.getSeats());
         }
         for (PartyResults p : electionResult.getProvinceResults("Alicante").getPartyResultsSorted()) {
             partidosenOrdenAlicante.add(p.getParty());
-            partidoAnyoGlobal.put(p.getParty(), p.getVotes());
+            partidoAnyoAlicante.put(p.getParty(), p.getVotes());
             resultadosAlicante.put(p.getParty(), p.getSeats());
         }
     }
@@ -164,7 +164,7 @@ public class Data {
 
     public ObservableList<XYChart.Series<String, Integer>> getBarData(Map<String, Integer> aux, ArrayList<String> orden) {
         ObservableList<XYChart.Series<String, Integer>> auxList = FXCollections.observableArrayList();
-        for (int i = 0; i < aux.size(); i++) {
+        for (int i = 0; i < orden.size(); i++) {
             barData = new XYChart.Series<String, Integer>();
             String partido = orden.get(i);
             int votos = aux.get(partido);
