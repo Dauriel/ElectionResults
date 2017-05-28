@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -80,68 +81,40 @@ public class MainController implements Initializable {
 
         //Setting task with spinner and veil 
         veil.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6)");
-        /*Task<ArrayList<Data>> nuestroTask = new Task<ArrayList<Data>>() {
+        Task<Map<Integer, Data>> task = new Task<Map<Integer, Data>>() {
             @Override
-            protected ArrayList<Data> call() throws Exception {
-                ArrayList<Data> auxil = new ArrayList<Data>();
-                auxil.add(new Data(1995));
-                System.out.println(auxil.toString());
-                auxil.add(new Data(1999));
-
-                System.out.println(auxil.toString());
-                auxil.add(new Data(2003));
-
-                System.out.println(auxil.toString());
-                auxil.add(new Data(2007));
-
-                System.out.println(auxil.toString());
-                auxil.add(new Data(2011));
-
-                System.out.println(auxil.toString());
-                auxil.add(new Data(2015));
+            protected Map<Integer, Data> call() throws Exception {
+                Map<Integer, Data> auxil = new HashMap<Integer, Data>();
+                auxil.put(1995, new Data(1995));
+                auxil.put(1999, new Data(1999));
+                auxil.put(2003, new Data(2003));
+                auxil.put(2007, new Data(2007));
+                auxil.put(2011, new Data(2011));
+                auxil.put(2015, new Data(2015));
                 return auxil;
+            }
+            @Override
+            protected void succeeded() {
+                super.succeeded();
+                datos = getValue();
+                
+            year = Integer.parseInt(tabPane.getSelectionModel().getSelectedItem().getText());
+            for (Tab t : tabPane.getTabs()) {
+                try {
+                    int anyo = parseInt(t.getText());
+                    dController = new DashboardController(datos.get(anyo));
+                    t.setContent(dController);
+                } catch (NumberFormatException e) {}
+            }
+            generateBarChart();
             }
         };
 
-        nuestroTask.valueProperty().addListener(new ChangeListener<ArrayList<Data>>() {
-            @Override
-            public void changed(ObservableValue<? extends ArrayList<Data>> obs, ArrayList<Data> oldValue, ArrayList<Data> newValue) {
-                datos = newValue;
-                System.out.println(datos.toString());
-            }
-        });
-        veil.visibleProperty().bind(nuestroTask.runningProperty());
-        spinner.visibleProperty().bind(nuestroTask.runningProperty());
-        Thread th = new Thread(nuestroTask);
+        veil.visibleProperty().bind(task.runningProperty());
+        spinner.visibleProperty().bind(task.runningProperty());
+        Thread th = new Thread(task);
         th.setDaemon(true);
-        th.start();*/
-
- /*Task<List<ElectionResults>> task = new DataTask();
-        
-        new Thread(task).start();*/
-        datos.put(1995, new Data(1995));
-        datos.put(1999, new Data(1999));
-        datos.put(2003, new Data(2003));
-        datos.put(2007, new Data(2007));
-        datos.put(2011, new Data(2011));
-        datos.put(2015, new Data(2015));
-
-        veil.setVisible(false);
-        spinner.setVisible(false);
-        //Platform.runLater(() -> {
-        year = Integer.parseInt(tabPane.getSelectionModel().getSelectedItem().getText());
-        for (Tab t : tabPane.getTabs()) {
-            try {
-                int anyo = parseInt(t.getText());
-                dController = new DashboardController(datos.get(anyo));
-                t.setContent(dController);
-            } catch (NumberFormatException e) {
-
-            }
-
-        }
-        //});
-        generateBarChart();
+        th.start();
     }
 
     public void generateBarChart() {
