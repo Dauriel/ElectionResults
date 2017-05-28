@@ -12,11 +12,10 @@ import com.jfoenix.controls.JFXTabPane;
 import electionresults.model.ElectionResults;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -28,6 +27,7 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.Region;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -78,7 +78,11 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(3),veil);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.setCycleCount(1);
+        fadeIn.play();
         //Setting task with spinner and veil 
         veil.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6)");
         Task<Map<Integer, Data>> task = new Task<Map<Integer, Data>>() {
@@ -95,9 +99,13 @@ public class MainController implements Initializable {
             }
             @Override
             protected void succeeded() {
-                super.succeeded();
+                FadeTransition fadeOut = new FadeTransition(Duration.seconds(3),veil);
+                fadeOut.setFromValue(1);
+                fadeOut.setToValue(0);
+                fadeOut.setCycleCount(1);
+                fadeOut.play();
                 datos = getValue();
-                
+                super.succeeded();
             year = Integer.parseInt(tabPane.getSelectionModel().getSelectedItem().getText());
             for (Tab t : tabPane.getTabs()) {
                 try {

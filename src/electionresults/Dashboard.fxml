@@ -80,8 +80,8 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="600.0" prefWidth="337.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <PieChart fx:id="pie" legendVisible="false" prefHeight="296.0" prefWidth="241.0" title="Seats distribution for Comunitat Valenciana" />
-                        <BarChart fx:id="bar" prefHeight="296.0" prefWidth="241.0" title="Party votes in Comunitat Valenciana">
+                        <PieChart fx:id="pie" legendVisible="false" title="Seats distribution for Comunitat Valenciana" />
+                        <BarChart fx:id="bar" title="Party votes in Comunitat Valenciana">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
