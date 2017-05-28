@@ -19,21 +19,25 @@
 
 <fx:root alignment="TOP_CENTER" type="HBox" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.28436516264428124, 0.6432318992654774" focusTraversable="true" styleClass="background" stylesheets="@palette.css" HBox.hgrow="ALWAYS">
+      <SplitPane dividerPositions="0.2882968601332065, 0.5994291151284491" focusTraversable="true" styleClass="background" stylesheets="@palette.css" HBox.hgrow="ALWAYS">
       <items>
-        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="275.0">
+        <AnchorPane minWidth="-Infinity" prefHeight="600.0" prefWidth="310.0">
           <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="595.0" prefWidth="224.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="310.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                  <Label fx:id="mapLabel" alignment="CENTER" minWidth="60.0" prefHeight="27.0" prefWidth="208.0" style="&#10;" text="Comunitat Valenciana" textAlignment="CENTER" textFill="#2b273f">
+                  <Label fx:id="mapLabel" alignment="CENTER" minWidth="-Infinity" prefHeight="79.0" prefWidth="310.0" style="&#10;" text="Comunitat Valenciana" textAlignment="CENTER" textFill="#2b273f">
                     <font>
-                      <Font name="SansSerif Bold Italic" size="18.0" fx:id="x1" />
+                      <Font name="SansSerif Bold Italic" size="23.0" fx:id="x1" />
                     </font>
                            <padding>
-                              <Insets top="40.0" />
+                              <Insets top="50.0" />
                            </padding>
                   </Label>
-                        <StackPane fx:id="stackPane" />
+                        <StackPane fx:id="stackPane">
+                           <padding>
+                              <Insets top="8.0" />
+                           </padding>
+                        </StackPane>
                         <JFXComboBox fx:id="regionBox" promptText="Choose Region">
                            <VBox.margin>
                               <Insets top="10.0" />
@@ -43,7 +47,7 @@
                   </VBox>
           </children>
         </AnchorPane>
-      <AnchorPane id="Content" prefHeight="595.0" prefWidth="318.0">
+      <AnchorPane id="Content" minWidth="-Infinity" prefHeight="600.0" prefWidth="299.0">
                <children>
                   <VBox prefHeight="595.0" prefWidth="321.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -72,7 +76,7 @@
                   </VBox>
                </children>
       </AnchorPane>
-        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="418.0">
+        <AnchorPane minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0">
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="337.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>

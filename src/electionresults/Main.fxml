@@ -55,9 +55,9 @@
             </Tab>
             <Tab text="Historical Evolution">
               <content>
-                <AnchorPane>
+                <AnchorPane prefWidth="1104.0">
                      <children>
-                        <VBox prefHeight="800.0" prefWidth="1104.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox prefHeight="650.0" prefWidth="1104.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <BarChart fx:id="barChart" title="Participation (%)">
                                 <xAxis>
