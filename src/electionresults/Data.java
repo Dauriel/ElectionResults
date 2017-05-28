@@ -171,11 +171,11 @@ public class Data {
             if (votos > 0) {
                 barData.setName(partido);
                 barData.getData().add(new XYChart.Data("" + x, votos));
+                
                 auxList.add(barData);
-            }
+            }            
         }
         
-
         /*for (String s : aux.keySet()) {
             barData = new XYChart.Series<String, Integer>();
             int votos = aux.get(s);

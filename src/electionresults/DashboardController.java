@@ -86,6 +86,7 @@ public class DashboardController extends HBox {
         regionSetter("Comunidad");
         initListeners();
         bar.setData(d.getBarData(d.getPartidoAnyoGlobal(), d.getPartidosenOrdenGlobal()));
+        
         pie.setData(d.getPieData(d.getResultadosGlobales(),d.getPartidosenOrdenGlobal()));
         initImage();        
     }
