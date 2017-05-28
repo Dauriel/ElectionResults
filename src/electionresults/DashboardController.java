@@ -10,13 +10,11 @@ import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTabPane;
 import electionresults.model.PartyResults;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -79,6 +77,9 @@ public class DashboardController extends HBox {
     private int counter1 = 0;
     private int counter2 = 0;
     private int counter3 = 0;
+    private final double PERCENT = 2.5;
+    Map<String, List<PartyResults>> currentBar;
+    String currentLabel;
     @FXML
     private Label mapLabel;
     private StackPane region1Layer = new StackPane();
@@ -107,11 +108,21 @@ public class DashboardController extends HBox {
         d = new Data(aux);
         regionSetter("Comunidad");
         initListeners();
-        bar.setData(d.getBarData(d.getPartidoAnyoGlobal(), d.getPartidosenOrdenGlobal()));
+        currentBar = d.getGeneral();
+        currentLabel = "General";
+        bar.setData(d.getBarData(currentBar, currentLabel, PERCENT));
+
         pie.setData(d.getPieData(d.getResultadosGlobales(), d.getPartidosenOrdenGlobal()));
         initImage();
         initColPartyTable();
         setTableData(d.getListaResultadosGlobales());
+        slider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
+                double value = t1.doubleValue();
+                bar.setData(d.getBarData(currentBar, currentLabel, value));
+            }
+        });
     }
 
     private void initColPartyTable() {
@@ -122,8 +133,8 @@ public class DashboardController extends HBox {
         percentageCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<PartyResults, Double>, ObservableValue<Double>>() {
             public ObservableValue<Double> call(TableColumn.CellDataFeatures<PartyResults, Double> p) {
                 double value = p.getValue().getPercentage();
-                value= Math.round(value * 100D) / 100D;
-                ObservableValue<Double> aux= new ReadOnlyObjectWrapper<>(value);
+                value = Math.round(value * 100D) / 100D;
+                ObservableValue<Double> aux = new ReadOnlyObjectWrapper<>(value);
                 return aux;
             }
         });
@@ -172,36 +183,22 @@ public class DashboardController extends HBox {
 
     private void loadRegionBox() {
         String regionSelected = regionBox.getSelectionModel().getSelectedItem();
-        if(regionSelected != null){
-        Set<Map<String, ArrayList<String>>> aux;
-        Map<String, ArrayList<String>> elemento2 = new HashMap<String, ArrayList<String>>();
-        Map<Map<String, ArrayList<String>>, Map<String, Integer>> partidos;
-        Set<String> auxv = d.getValencia();
-        Set<String> auxc = d.getCastellon();
-        Set<String> auxa = d.getAlicante();
-        ArrayList<String> arrayaux = new ArrayList<String>();
-        if (auxv.contains(regionSelected)) {
-            aux = d.getComarcaValencia().keySet();
-            partidos = d.getComarcaValencia();
-        } else if (auxc.contains(regionSelected)) {
-            aux = d.getComarcaCastellon().keySet();
-            partidos = d.getComarcaCastellon();
-        } else {
-            aux = d.getComarcaAlicante().keySet();
-            partidos = d.getComarcaAlicante();
-        }
-        for (Map<String, ArrayList<String>> elemento : aux) {
-            for (String s : elemento.keySet()) {
-                if (s.equals(regionSelected)) {
-                    arrayaux = elemento.get(s);
-                    elemento2 = elemento;
-                }
+        if (regionSelected != null) {
+            Set<String> auxv = d.getValencia();
+            Set<String> auxc = d.getCastellon();
+            Set<String> auxa = d.getAlicante();
+            currentLabel = regionSelected;
+            if (auxv.contains(regionSelected)) {
+                currentBar = d.getPartyResultsValencia();
+                bar.setData(d.getBarData(currentBar, currentLabel, PERCENT));
+            } else if (auxc.contains(regionSelected)) {
+                currentBar = d.getPartyResultsCastellon();
+                bar.setData(d.getBarData(currentBar, currentLabel, PERCENT));
+            } else {
+                currentBar = d.getPartyResultsAlicante();
+                bar.setData(d.getBarData(currentBar, currentLabel, PERCENT));
             }
-        }
-        Map<String, Integer> fini = partidos.get(elemento2);
-        bar.setData(d.getBarData(fini, arrayaux));
-        bar.setTitle("Party votes in " + regionSelected);
-        setTableData(d.getRegiones(regionSelected));
+            bar.setTitle("Party votes in " + regionSelected);
         }
     }
 
@@ -257,7 +254,9 @@ public class DashboardController extends HBox {
                 regionSetter("Comunidad");
                 pie.setClockwise(false);
                 pie.setData(d.getPieData(d.getResultadosGlobales(), d.getPartidosenOrdenGlobal()));
-                bar.setData(d.getBarData(d.getPartidoAnyoGlobal(), d.getPartidosenOrdenGlobal()));
+                currentBar = d.getGeneral();
+                currentLabel = "General";
+                bar.setData(d.getBarData(currentBar, currentLabel, PERCENT));
                 region1Layer.getChildren().clear();
                 region1Layer.getChildren().add(region1ImageView);
                 counter1--;
@@ -265,7 +264,9 @@ public class DashboardController extends HBox {
                 regionSetter("Castellon");
                 pie.setClockwise(true);
                 pie.setData(d.getPieData(d.getResultadosCastellon(), d.getPartidosenOrdenCastellon()));
-                bar.setData(d.getBarData(d.getPartidoAnyoCastellon(), d.getPartidosenOrdenCastellon()));
+                currentBar = d.getPartyComunidades();
+                currentLabel = "Castellon";
+                bar.setData(d.getBarData(currentBar, currentLabel, PERCENT));
                 region1Layer.getChildren().clear();
                 region1Layer.getChildren().add(region1sImageView);
                 if (counter2 == 1) {
@@ -287,13 +288,17 @@ public class DashboardController extends HBox {
                 regionSetter("Comunidad");
                 pie.setClockwise(false);
                 pie.setData(d.getPieData(d.getResultadosGlobales(), d.getPartidosenOrdenGlobal()));
-                bar.setData(d.getBarData(d.getPartidoAnyoGlobal(), d.getPartidosenOrdenGlobal()));
+                currentBar = d.getGeneral();
+                currentLabel = "General";
+                bar.setData(d.getBarData(currentBar, currentLabel, PERCENT));
                 region2Layer.getChildren().clear();
                 region2Layer.getChildren().add(region2ImageView);
                 counter2--;
             } else {
                 regionSetter("Valencia");
-                bar.setData(d.getBarData(d.getPartidoAnyoValencia(), d.getPartidosenOrdenValencia()));
+                currentBar = d.getPartyComunidades();
+                currentLabel = "Valencia";
+                bar.setData(d.getBarData(currentBar, currentLabel, PERCENT));
                 pie.setClockwise(true);
                 pie.setData(d.getPieData(d.getResultadosValencia(), d.getPartidosenOrdenValencia()));
                 region2Layer.getChildren().clear();
@@ -318,13 +323,17 @@ public class DashboardController extends HBox {
                 regionSetter("Comunidad");
                 pie.setClockwise(false);
                 pie.setData(d.getPieData(d.getResultadosGlobales(), d.getPartidosenOrdenGlobal()));
-                bar.setData(d.getBarData(d.getPartidoAnyoGlobal(), d.getPartidosenOrdenGlobal()));
+                currentBar = d.getGeneral();
+                currentLabel = "General";
+                bar.setData(d.getBarData(currentBar, currentLabel, PERCENT));
                 region3Layer.getChildren().clear();
                 region3Layer.getChildren().add(region3ImageView);
                 counter3--;
             } else {
                 regionSetter("Alicante");
-                bar.setData(d.getBarData(d.getPartidoAnyoAlicante(), d.getPartidosenOrdenAlicante()));
+                currentBar = d.getPartyComunidades();
+                currentLabel = "Alicante";
+                bar.setData(d.getBarData(currentBar, currentLabel, PERCENT));
                 pie.setClockwise(true);
                 pie.setData(d.getPieData(d.getResultadosAlicante(), d.getPartidosenOrdenAlicante()));
                 region3Layer.getChildren().clear();
