@@ -75,6 +75,18 @@ public class DashboardController extends HBox {
     private int counter3 = 0;
     @FXML
     private Label mapLabel;
+    private StackPane region1Layer = new StackPane();
+    private StackPane region2Layer = new StackPane();
+    private StackPane region3Layer = new StackPane();
+    private ImageView region1ImageView = new ImageView(new Image(getClass().getResource("/images/region1.png").toExternalForm()));
+    private ImageView region2ImageView = new ImageView(new Image(getClass().getResource("/images/region2.png").toExternalForm()));
+    private ImageView region3ImageView = new ImageView(new Image(getClass().getResource("/images/region3.png").toExternalForm()));
+    private ImageView region1sImageView = new ImageView(new Image(getClass().getResource("/images/region1s.png").toExternalForm()));
+    private ImageView region2sImageView = new ImageView(new Image(getClass().getResource("/images/region2s.png").toExternalForm()));
+    private ImageView region3sImageView = new ImageView(new Image(getClass().getResource("/images/region3s.png").toExternalForm()));
+    private ImageView region1oImageView = new ImageView(new Image(getClass().getResource("/images/region1o.png").toExternalForm()));
+    private ImageView region2oImageView = new ImageView(new Image(getClass().getResource("/images/region2o.png").toExternalForm()));
+    private ImageView region3oImageView = new ImageView(new Image(getClass().getResource("/images/region3o.png").toExternalForm()));
 
     public DashboardController(int datos) {
         aux = datos;
@@ -150,12 +162,42 @@ public class DashboardController extends HBox {
         if (auxv.contains(regionSelected)) {
             aux = d.getComarcaValencia().keySet();
             partidos = d.getComarcaValencia();
+            region1Layer.getChildren().clear();
+            region1Layer.getChildren().add(region1sImageView);
+            region2Layer.getChildren().clear();
+            region2Layer.getChildren().add(region2ImageView);
+            region3Layer.getChildren().clear();
+            region3Layer.getChildren().add(region3ImageView);
+            counter1++;
+            counter2 = 0;
+            counter3 = 0;            
+            regionSetter("Valencia");
         } else if (auxc.contains(regionSelected)) {
             aux = d.getComarcaCastellon().keySet();
             partidos = d.getComarcaCastellon();
+            region2Layer.getChildren().clear();
+            region2Layer.getChildren().add(region2sImageView);
+            region1Layer.getChildren().clear();
+            region1Layer.getChildren().add(region1ImageView);
+            region3Layer.getChildren().clear();
+            region3Layer.getChildren().add(region3ImageView);
+            counter2++;
+            counter1 = 0;
+            counter3 = 0;
+            regionSetter("Castellon");            
         } else {
             aux = d.getComarcaAlicante().keySet();
             partidos = d.getComarcaAlicante();
+            region3Layer.getChildren().clear();
+            region3Layer.getChildren().add(region3sImageView);
+            region2Layer.getChildren().clear();
+            region2Layer.getChildren().add(region2ImageView);
+            region1Layer.getChildren().clear();
+            region1Layer.getChildren().add(region1ImageView);
+            counter3++;
+            counter1 = 0;
+            counter2 = 0;
+            regionSetter("Alicante");
         }
         for (Map<String, ArrayList<String>> elemento : aux) {
             for (String s : elemento.keySet()) {
@@ -166,30 +208,15 @@ public class DashboardController extends HBox {
             }
         }
         Map<String, Integer> fini = partidos.get(elemento2);
-        bar.setData(d.getBarData(fini,arrayaux));
+        bar.setData(d.getBarData(fini, arrayaux));
         bar.setTitle("Party votes in " + regionSelected);
     }
 
     private void initImage() {
-        StackPane region1Layer = new StackPane();
-        StackPane region2Layer = new StackPane();
-        StackPane region3Layer = new StackPane();
 
         // add layers
         stackPane.getChildren().addAll(region1Layer, region2Layer, region3Layer);
 
-        // load images
-        ImageView region1ImageView = new ImageView(new Image(getClass().getResource("/images/region1.png").toExternalForm()));
-        ImageView region2ImageView = new ImageView(new Image(getClass().getResource("/images/region2.png").toExternalForm()));
-        ImageView region3ImageView = new ImageView(new Image(getClass().getResource("/images/region3.png").toExternalForm()));
-        ImageView region1sImageView = new ImageView(new Image(getClass().getResource("/images/region1s.png").toExternalForm()));
-        ImageView region2sImageView = new ImageView(new Image(getClass().getResource("/images/region2s.png").toExternalForm()));
-        ImageView region3sImageView = new ImageView(new Image(getClass().getResource("/images/region3s.png").toExternalForm()));
-        ImageView region1oImageView = new ImageView(new Image(getClass().getResource("/images/region1o.png").toExternalForm()));
-        ImageView region2oImageView = new ImageView(new Image(getClass().getResource("/images/region2o.png").toExternalForm()));
-        ImageView region3oImageView = new ImageView(new Image(getClass().getResource("/images/region3o.png").toExternalForm()));
-
-        // add images
         region1Layer.getChildren().add(region1ImageView);
         region2Layer.getChildren().add(region2ImageView);
         region3Layer.getChildren().add(region3ImageView);
