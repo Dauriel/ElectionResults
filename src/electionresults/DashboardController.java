@@ -173,6 +173,7 @@ public class DashboardController extends HBox {
 
     private void loadRegionBox() {
         String regionSelected = regionBox.getSelectionModel().getSelectedItem();
+        if(regionSelected != null){
         Set<Map<String, ArrayList<String>>> aux;
         Map<String, ArrayList<String>> elemento2 = new HashMap<String, ArrayList<String>>();
         Map<Map<String, ArrayList<String>>, Map<String, Integer>> partidos;
@@ -202,6 +203,7 @@ public class DashboardController extends HBox {
         bar.setData(d.getBarData(fini, arrayaux));
         bar.setTitle("Party votes in " + regionSelected);
         setTableData(d.getRegiones(regionSelected));
+        }
     }
 
     private void initImage() {

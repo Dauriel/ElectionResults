@@ -268,6 +268,7 @@ public class Data {
     }
 
     public List<PartyResults> getRegiones(String regiones) {
+        
         return electionResult.getRegionResults(regiones).getPartyResultsSorted();
     }
 
