@@ -171,9 +171,9 @@ public class DashboardController extends HBox {
     }
 
     private void initImage() {
-        Pane region1Layer = new Pane();
-        Pane region2Layer = new Pane();
-        Pane region3Layer = new Pane();
+        StackPane region1Layer = new StackPane();
+        StackPane region2Layer = new StackPane();
+        StackPane region3Layer = new StackPane();
 
         // add layers
         stackPane.getChildren().addAll(region1Layer, region2Layer, region3Layer);
