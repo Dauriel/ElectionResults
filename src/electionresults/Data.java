@@ -20,6 +20,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 
 /**
  *
@@ -237,6 +239,11 @@ public class Data {
             if (votos > 0) {
                 barData.setName(partido);
                 barData.getData().add(new XYChart.Data("" + x, votos));
+                barData.getData().forEach(data -> {
+                    Label label = new Label(data.getYValue() + "");
+                    data.setNode(new StackPane(label));
+                    label.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
+                });
                 auxList.add(barData);
             }
         }
@@ -268,7 +275,7 @@ public class Data {
     }
 
     public List<PartyResults> getRegiones(String regiones) {
-        
+
         return electionResult.getRegionResults(regiones).getPartyResultsSorted();
     }
 
