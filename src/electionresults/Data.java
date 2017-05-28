@@ -20,6 +20,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 
 /**
  *
@@ -38,6 +40,10 @@ public class Data {
     private Set<String> castellon = new HashSet<String>();
     private Set<String> alicante = new HashSet<String>();
     private List<PartyResults> listaResultadosGlobales;
+    private ArrayList<String> partidosenOrdenGlobal = new ArrayList();
+    private ArrayList<String> partidosenOrdenValencia = new ArrayList();
+    private ArrayList<String> partidosenOrdenCastellon = new ArrayList();
+    private ArrayList<String> partidosenOrdenAlicante = new ArrayList();
     private Map<String, Integer> resultadosGlobales = new HashMap<String, Integer>();
     private Map<String, Integer> resultadosValencia = new HashMap<String, Integer>();
     private Map<String, Integer> resultadosAlicante = new HashMap<String, Integer>();
@@ -71,7 +77,7 @@ public class Data {
     public Data(int year) {
         x = year;
         electionResult = DataAccessLayer.getElectionResults(x);
-        comunidad = electionResult.getRegionProvinces().keySet();        
+        comunidad = electionResult.getRegionProvinces().keySet();
         cvinfo = electionResult.getGlobalResults();
         for (Map.Entry<String, String> entry : electionResult.getRegionProvinces().entrySet()) {
             String aux = entry.getValue();
@@ -84,26 +90,29 @@ public class Data {
             }
         }
         listaResultadosGlobales = cvinfo.getPartyResultsSorted();
-        
+
         for (PartyResults p : listaResultadosGlobales) {
+            partidosenOrdenGlobal.add(p.getParty());
             resultadosGlobales.put(p.getParty(), p.getSeats());
-            partidoAnyoGlobal.put(p.getParty(),p.getVotes());
+            partidoAnyoGlobal.put(p.getParty(), p.getVotes());
         }
-        
+
         for (PartyResults p : electionResult.getProvinceResults("Valencia").getPartyResultsSorted()) {
-            partidoAnyoGlobal.put(p.getParty(),p.getVotes());
+            partidosenOrdenValencia.add(p.getParty());
+            partidoAnyoGlobal.put(p.getParty(), p.getVotes());
             resultadosValencia.put(p.getParty(), p.getSeats());
         }
         for (PartyResults p : electionResult.getProvinceResults("Castellón").getPartyResultsSorted()) {
-            partidoAnyoGlobal.put(p.getParty(),p.getVotes());
+            partidosenOrdenCastellon.add(p.getParty());
+            partidoAnyoGlobal.put(p.getParty(), p.getVotes());
             resultadosCastellon.put(p.getParty(), p.getSeats());
         }
         for (PartyResults p : electionResult.getProvinceResults("Alicante").getPartyResultsSorted()) {
-            partidoAnyoGlobal.put(p.getParty(),p.getVotes());
+            partidosenOrdenAlicante.add(p.getParty());
+            partidoAnyoGlobal.put(p.getParty(), p.getVotes());
             resultadosAlicante.put(p.getParty(), p.getSeats());
         }
     }
-
 
     public Map<String, Integer> getPartidoAnyoGlobal() {
         return partidoAnyoGlobal;
@@ -137,26 +146,60 @@ public class Data {
         return resultadosGlobales;
     }
 
-    public ObservableList<PieChart.Data> getPieData(Map<String, Integer> aux) {
+    public ObservableList<PieChart.Data> getPieData(Map<String, Integer> aux, ArrayList<String> orden) {
         pieData = FXCollections.observableArrayList();
-        for (String s : aux.keySet()) {
+        for (int i = 0; i < orden.size(); i++) {
+            String partido = orden.get(i);
+            int seats = aux.get(partido);
+            if (seats > 0) {
+                pieData.add(new PieChart.Data(partido + " (" + seats + ")", seats));
+            }
+        }
+        /*for (String s : aux.keySet()) {
             int seats = aux.get(s);
             pieData.add(new PieChart.Data(s + " (" + seats + ")",seats));
-        }
+        }*/
         return pieData;
     }
 
-    public ObservableList<XYChart.Series<String,Integer>> getBarData(Map<String, Integer> aux) {  
-        ObservableList<XYChart.Series<String,Integer>> auxList= FXCollections.observableArrayList();
-        for (String s : aux.keySet()) {
+    public ObservableList<XYChart.Series<String, Integer>> getBarData(Map<String, Integer> aux, ArrayList<String> orden) {
+        ObservableList<XYChart.Series<String, Integer>> auxList = FXCollections.observableArrayList();
+        for (int i = 0; i < orden.size(); i++) {
+            barData = new XYChart.Series<String, Integer>();
+            String partido = orden.get(i);
+            int votos = aux.get(partido);
+            if (votos > 0) {
+                barData.setName(partido);
+                barData.getData().add(new XYChart.Data("" + x, votos));
+                auxList.add(barData);
+            }
+        }
+        
+
+        /*for (String s : aux.keySet()) {
             barData = new XYChart.Series<String, Integer>();
             int votos = aux.get(s);
             barData.setName(s);
             barData.getData().add(new XYChart.Data(""+x, votos));
             auxList.add(barData);
-        }
+        }*/
         return auxList;
     }
-    
-    
+
+    public ArrayList<String> getPartidosenOrdenGlobal() {
+        return partidosenOrdenGlobal;
+    }
+
+    public ArrayList<String> getPartidosenOrdenValencia() {
+        return partidosenOrdenValencia;
+    }
+
+    public ArrayList<String> getPartidosenOrdenCastellon() {
+        return partidosenOrdenCastellon;
+    }
+
+    public ArrayList<String> getPartidosenOrdenAlicante() {
+        return partidosenOrdenAlicante;
+    }
+
 }

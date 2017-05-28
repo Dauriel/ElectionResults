@@ -85,8 +85,8 @@ public class DashboardController extends HBox {
         d = new Data(aux);
         regionSetter("Comunidad");
         initListeners();
-        bar.setData(d.getBarData(d.getPartidoAnyoGlobal()));
-        pie.setData(d.getPieData(d.getResultadosGlobales()));
+        bar.setData(d.getBarData(d.getPartidoAnyoGlobal(), d.getPartidosenOrdenGlobal()));
+        pie.setData(d.getPieData(d.getResultadosGlobales(),d.getPartidosenOrdenGlobal()));
         initImage();        
     }
 
@@ -164,14 +164,14 @@ public class DashboardController extends HBox {
             if (counter1 == 1) {
                 regionSetter("Comunidad");
                 pie.setClockwise(false);
-                pie.setData(d.getPieData(d.getResultadosGlobales()));
+                pie.setData(d.getPieData(d.getResultadosGlobales(), d.getPartidosenOrdenGlobal()));
                 region1Layer.getChildren().clear();
                 region1Layer.getChildren().add(region1ImageView);
                 counter1--;
             } else {
                 regionSetter("Castellon");
                 pie.setClockwise(true);
-                pie.setData(d.getPieData(d.getResultadosCastellon()));
+                pie.setData(d.getPieData(d.getResultadosCastellon(),d.getPartidosenOrdenCastellon()));
                 region1Layer.getChildren().clear();
                 region1Layer.getChildren().add(region1sImageView);
                 if (counter2 == 1) {
@@ -192,14 +192,14 @@ public class DashboardController extends HBox {
             if (counter2 == 1) {
                 regionSetter("Comunidad");
                 pie.setClockwise(false);
-                pie.setData(d.getPieData(d.getResultadosGlobales()));
+                pie.setData(d.getPieData(d.getResultadosGlobales(),d.getPartidosenOrdenGlobal()));
                 region2Layer.getChildren().clear();
                 region2Layer.getChildren().add(region2ImageView);
                 counter2--;
             } else {
                 regionSetter("Valencia");
                 pie.setClockwise(true);
-                pie.setData(d.getPieData(d.getResultadosValencia()));
+                pie.setData(d.getPieData(d.getResultadosValencia(), d.getPartidosenOrdenValencia()));
                 region2Layer.getChildren().clear();
                 region2Layer.getChildren().add(region2sImageView);
                 if (counter1 == 1) {
@@ -221,14 +221,14 @@ public class DashboardController extends HBox {
             if (counter3 == 1) {                
                 regionSetter("Comunidad");
                 pie.setClockwise(false);
-                pie.setData(d.getPieData(d.getResultadosGlobales()));
+                pie.setData(d.getPieData(d.getResultadosGlobales(), d.getPartidosenOrdenGlobal()));
                 region3Layer.getChildren().clear();
                 region3Layer.getChildren().add(region3ImageView);
                 counter3--;
             } else {
                 regionSetter("Alicante");
                 pie.setClockwise(true);
-                pie.setData(d.getPieData(d.getResultadosAlicante()));
+                pie.setData(d.getPieData(d.getResultadosAlicante(), d.getPartidosenOrdenAlicante()));
                 region3Layer.getChildren().clear();
                 region3Layer.getChildren().add(region3sImageView);
                 if (counter2 == 1) {
