@@ -10,10 +10,16 @@ import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTabPane;
 import electionresults.model.PartyResults;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
@@ -25,9 +31,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -102,16 +108,27 @@ public class DashboardController extends HBox {
         regionSetter("Comunidad");
         initListeners();
         bar.setData(d.getBarData(d.getPartidoAnyoGlobal(), d.getPartidosenOrdenGlobal()));
-
         pie.setData(d.getPieData(d.getResultadosGlobales(), d.getPartidosenOrdenGlobal()));
         initImage();
+        initColPartyTable();
+        setTableData(d.getListaResultadosGlobales());
     }
 
     private void initColPartyTable() {
         partyCol.setCellValueFactory(new PropertyValueFactory<>("party"));
         seatsCol.setCellValueFactory(new PropertyValueFactory<>("seats"));
         votesCol.setCellValueFactory(new PropertyValueFactory<>("votes"));
-        percentageCol.setCellValueFactory(new PropertyValueFactory<>("percentage"));
+        //percentageCol.setCellValueFactory(new PropertyValueFactory<>("percentage"));        
+        percentageCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<PartyResults, Double>, ObservableValue<Double>>() {
+            public ObservableValue<Double> call(TableColumn.CellDataFeatures<PartyResults, Double> p) {
+                // p.getValue() returns the Person instance for a particular TableView row
+                double value = p.getValue().getPercentage();
+                value= Math.round(value * 100D) / 100D;
+                ObservableValue<Double> aux= new ReadOnlyObjectWrapper<>(value);
+                return aux;
+            }
+        });
+
     }
 
     private void loadDataPartyTable() {
@@ -120,24 +137,28 @@ public class DashboardController extends HBox {
 
     private void regionSetter(String s) {
         if (s.equals("Comunidad")) {
+            setTableData(d.getListaResultadosGlobales());
             bar.setTitle("Party votes in Comunidad Valenciana");
             pie.setTitle("Seats Distribution for Comunidad Valenciana");
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getComunidad());
             mapLabel.setText("Comunidad Valenciana");
         } else if (s.equals("Valencia")) {
+            setTableData(d.getPartyValencia());
             bar.setTitle("Party votes in Valencia");
             pie.setTitle("Seats Distribution for Valencia");
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getValencia());
             mapLabel.setText("Valencia");
         } else if (s.equals("Castellon")) {
+            setTableData(d.getPartyCastellon());
             bar.setTitle("Party votes in Castellón");
             pie.setTitle("Seats Distribution for Castellón");
             regionBox.getItems().clear();
             regionBox.getItems().addAll(d.getCastellon());
             mapLabel.setText("Castellón");
         } else {
+            setTableData(d.getPartyAlicante());
             bar.setTitle("Party votes in Alicante");
             pie.setTitle("Seats Distribution for Alicante");
             regionBox.getItems().clear();
@@ -164,7 +185,7 @@ public class DashboardController extends HBox {
             partidos = d.getComarcaValencia();
         } else if (auxc.contains(regionSelected)) {
             aux = d.getComarcaCastellon().keySet();
-            partidos = d.getComarcaCastellon();         
+            partidos = d.getComarcaCastellon();
         } else {
             aux = d.getComarcaAlicante().keySet();
             partidos = d.getComarcaAlicante();
@@ -180,6 +201,7 @@ public class DashboardController extends HBox {
         Map<String, Integer> fini = partidos.get(elemento2);
         bar.setData(d.getBarData(fini, arrayaux));
         bar.setTitle("Party votes in " + regionSelected);
+        setTableData(d.getRegiones(regionSelected));
     }
 
     private void initImage() {
@@ -327,4 +349,8 @@ public class DashboardController extends HBox {
         region3Layer.setPickOnBounds(false);
     }
 
+    private void setTableData(List<PartyResults> listaResultados) {
+        ObservableList<PartyResults> auxList = FXCollections.observableArrayList(listaResultados);
+        partyTable.setItems(auxList);
+    }
 }

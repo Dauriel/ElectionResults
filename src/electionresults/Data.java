@@ -50,10 +50,25 @@ public class Data {
     private Map<String, Integer> partidoAnyoValencia = new HashMap<String, Integer>();
     private Map<String, Integer> partidoAnyoCastellon = new HashMap<String, Integer>();
     private Map<String, Integer> partidoAnyoAlicante = new HashMap<String, Integer>();
-    private Map<Map<String, ArrayList<String>>, Map<String, Integer>> comarcaValencia = new HashMap<Map<String,ArrayList<String>>,Map<String, Integer>>();
-    private Map<Map<String, ArrayList<String>>, Map<String, Integer>> comarcaAlicante = new HashMap<Map<String,ArrayList<String>>,Map<String, Integer>>();
-    private Map<Map<String, ArrayList<String>>, Map<String, Integer>> comarcaCastellon = new HashMap<Map<String,ArrayList<String>>,Map<String, Integer>>();
+    private Map<Map<String, ArrayList<String>>, Map<String, Integer>> comarcaValencia = new HashMap<Map<String, ArrayList<String>>, Map<String, Integer>>();
+    private Map<Map<String, ArrayList<String>>, Map<String, Integer>> comarcaAlicante = new HashMap<Map<String, ArrayList<String>>, Map<String, Integer>>();
+    private Map<Map<String, ArrayList<String>>, Map<String, Integer>> comarcaCastellon = new HashMap<Map<String, ArrayList<String>>, Map<String, Integer>>();
+    private List<PartyResults> partyValencia;
+    private List<PartyResults> partyCastellon;
+    private List<PartyResults> partyAlicante;
     private int x;
+
+    public List<PartyResults> getPartyValencia() {
+        return partyValencia;
+    }
+
+    public List<PartyResults> getPartyCastellon() {
+        return partyCastellon;
+    }
+
+    public List<PartyResults> getPartyAlicante() {
+        return partyAlicante;
+    }
 
     public Set<String> getValencia() {
         return valencia;
@@ -91,60 +106,62 @@ public class Data {
             }
         }
         listaResultadosGlobales = cvinfo.getPartyResultsSorted();
-
         for (PartyResults p : listaResultadosGlobales) {
             partidosenOrdenGlobal.add(p.getParty());
             resultadosGlobales.put(p.getParty(), p.getSeats());
             partidoAnyoGlobal.put(p.getParty(), p.getVotes());
         }
-
-        for (PartyResults p : electionResult.getProvinceResults("Valencia").getPartyResultsSorted()) {
+        partyValencia = electionResult.getProvinceResults("Valencia").getPartyResultsSorted();
+        for (PartyResults p : partyValencia) {
             partidosenOrdenValencia.add(p.getParty());
             partidoAnyoValencia.put(p.getParty(), p.getVotes());
             resultadosValencia.put(p.getParty(), p.getSeats());
+
         }
-        for (PartyResults p : electionResult.getProvinceResults("Castellón").getPartyResultsSorted()) {
+        partyCastellon = electionResult.getProvinceResults("Castellón").getPartyResultsSorted();
+        for (PartyResults p : partyCastellon) {
             partidosenOrdenCastellon.add(p.getParty());
             partidoAnyoCastellon.put(p.getParty(), p.getVotes());
             resultadosCastellon.put(p.getParty(), p.getSeats());
         }
-        for (PartyResults p : electionResult.getProvinceResults("Alicante").getPartyResultsSorted()) {
+        partyAlicante = electionResult.getProvinceResults("Alicante").getPartyResultsSorted();
+        for (PartyResults p : partyAlicante) {
             partidosenOrdenAlicante.add(p.getParty());
             partidoAnyoAlicante.put(p.getParty(), p.getVotes());
             resultadosAlicante.put(p.getParty(), p.getSeats());
         }
-        for (String s : valencia){
+        for (String s : valencia) {
             RegionResults r = electionResult.getRegionResults(s);
             Map<String, Integer> aux = new HashMap<String, Integer>();
             Map<String, ArrayList<String>> aux3 = new HashMap<String, ArrayList<String>>();
-            ArrayList<String> aux2= new ArrayList<String>();
-            for(PartyResults p : r.getPartyResultsSorted()){
-               aux.put(p.getParty(), p.getVotes());
-               aux2.add(p.getParty());
+            ArrayList<String> aux2 = new ArrayList<String>();
+            for (PartyResults p : r.getPartyResultsSorted()) {
+                aux.put(p.getParty(), p.getVotes());
+                aux2.add(p.getParty());
             }
             aux3.put(s, aux2);
             comarcaValencia.put(aux3, aux);
         }
-        for (String s : alicante){
+        for (String s : alicante) {
             RegionResults r = electionResult.getRegionResults(s);
             Map<String, Integer> aux = new HashMap<String, Integer>();
             Map<String, ArrayList<String>> aux3 = new HashMap<String, ArrayList<String>>();
-            ArrayList<String> aux2= new ArrayList<String>();
-            for(PartyResults p : r.getPartyResultsSorted()){
-               aux.put(p.getParty(), p.getVotes());
-               aux2.add(p.getParty());
+            ArrayList<String> aux2 = new ArrayList<String>();
+            for (PartyResults p : r.getPartyResultsSorted()) {
+                aux.put(p.getParty(), p.getVotes());
+                aux2.add(p.getParty());
             }
             aux3.put(s, aux2);
             comarcaAlicante.put(aux3, aux);
         }
-        for (String s : castellon){
+        for (String s : castellon) {
             RegionResults r = electionResult.getRegionResults(s);
             Map<String, Integer> aux = new HashMap<String, Integer>();
             Map<String, ArrayList<String>> aux3 = new HashMap<String, ArrayList<String>>();
-            ArrayList<String> aux2= new ArrayList<String>();
-            for(PartyResults p : r.getPartyResultsSorted()){
-               aux.put(p.getParty(), p.getVotes());
-               aux2.add(p.getParty());
+            ArrayList<String> aux2 = new ArrayList<String>();
+            for (PartyResults p : r.getPartyResultsSorted()) {
+                aux.put(p.getParty(), p.getVotes());
+                aux2.add(p.getParty());
             }
             aux3.put(s, aux2);
             comarcaCastellon.put(aux3, aux);
@@ -219,11 +236,11 @@ public class Data {
             int votos = aux.get(partido);
             if (votos > 0) {
                 barData.setName(partido);
-                barData.getData().add(new XYChart.Data("" + x, votos));                
+                barData.getData().add(new XYChart.Data("" + x, votos));
                 auxList.add(barData);
-            }            
+            }
         }
-        
+
         /*for (String s : aux.keySet()) {
             barData = new XYChart.Series<String, Integer>();
             int votos = aux.get(s);
@@ -249,7 +266,9 @@ public class Data {
     public ArrayList<String> getPartidosenOrdenAlicante() {
         return partidosenOrdenAlicante;
     }
-    
-    
+
+    public List<PartyResults> getRegiones(String regiones) {
+        return electionResult.getRegionResults(regiones).getPartyResultsSorted();
+    }
 
 }
