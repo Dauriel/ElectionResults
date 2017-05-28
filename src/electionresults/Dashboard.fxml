@@ -63,10 +63,10 @@
                         </TableView>
                         <TableView fx:id="partyTable" prefHeight="419.0" prefWidth="321.0" stylesheets="@tableview.css" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn fx:id="partyCol" prefWidth="99.0" text="Party" />
-                            <TableColumn fx:id="seatsCol" prefWidth="78.0" text="Seats" />
-                              <TableColumn fx:id="votesCol" prefWidth="98.0" text="Votes" />
-                              <TableColumn fx:id="percentageCol" prefWidth="59.0" text="\%" />
+                            <TableColumn fx:id="partyCol" prefWidth="99.0" style="-fx-alignment: CENTER;" text="Party" />
+                            <TableColumn fx:id="seatsCol" prefWidth="78.0" style="-fx-alignment: CENTER;" text="Seats" />
+                              <TableColumn fx:id="votesCol" prefWidth="98.0" style="-fx-alignment: CENTER;" text="Votes" />
+                              <TableColumn fx:id="percentageCol" prefWidth="59.0" style="-fx-alignment: CENTER;" text="\%" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
