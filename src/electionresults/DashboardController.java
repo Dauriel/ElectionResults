@@ -121,7 +121,6 @@ public class DashboardController extends HBox {
         //percentageCol.setCellValueFactory(new PropertyValueFactory<>("percentage"));        
         percentageCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<PartyResults, Double>, ObservableValue<Double>>() {
             public ObservableValue<Double> call(TableColumn.CellDataFeatures<PartyResults, Double> p) {
-                // p.getValue() returns the Person instance for a particular TableView row
                 double value = p.getValue().getPercentage();
                 value= Math.round(value * 100D) / 100D;
                 ObservableValue<Double> aux= new ReadOnlyObjectWrapper<>(value);

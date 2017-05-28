@@ -23,7 +23,7 @@
       <items>
         <AnchorPane minWidth="-Infinity" prefHeight="600.0" prefWidth="310.0">
           <children>
-                  <VBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="310.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="310.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                   <Label fx:id="mapLabel" alignment="CENTER" minWidth="-Infinity" prefHeight="79.0" prefWidth="310.0" style="&#10;" text="Comunitat Valenciana" textAlignment="CENTER" textFill="#2b273f">
                     <font>
@@ -49,7 +49,7 @@
         </AnchorPane>
       <AnchorPane id="Content" minWidth="-Infinity" prefHeight="600.0" prefWidth="299.0">
                <children>
-                  <VBox prefHeight="595.0" prefWidth="321.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="CENTER" prefHeight="595.0" prefWidth="321.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <TableView fx:id="summaryTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="176.0" prefWidth="321.0" stylesheets="@tableview.css">
                           <columns>
@@ -78,7 +78,7 @@
       </AnchorPane>
         <AnchorPane minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="337.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="CENTER" prefHeight="600.0" prefWidth="337.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <PieChart fx:id="pie" legendVisible="false" prefHeight="296.0" prefWidth="241.0" title="Seats distribution for Comunitat Valenciana" />
                         <BarChart fx:id="bar" prefHeight="296.0" prefWidth="241.0" title="Party votes in Comunitat Valenciana">
