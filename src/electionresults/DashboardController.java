@@ -86,9 +86,9 @@ public class DashboardController extends HBox {
         regionSetter("Comunidad");
         initListeners();
         bar.setData(d.getBarData(d.getPartidoAnyoGlobal(), d.getPartidosenOrdenGlobal()));
-        
-        pie.setData(d.getPieData(d.getResultadosGlobales(),d.getPartidosenOrdenGlobal()));
-        initImage();        
+
+        pie.setData(d.getPieData(d.getResultadosGlobales(), d.getPartidosenOrdenGlobal()));
+        initImage();
     }
 
     private void initColPartyTable() {
@@ -154,25 +154,66 @@ public class DashboardController extends HBox {
         ImageView region1sImageView = new ImageView(new Image(getClass().getResource("/images/region1s.png").toExternalForm()));
         ImageView region2sImageView = new ImageView(new Image(getClass().getResource("/images/region2s.png").toExternalForm()));
         ImageView region3sImageView = new ImageView(new Image(getClass().getResource("/images/region3s.png").toExternalForm()));
+        ImageView region1oImageView = new ImageView(new Image(getClass().getResource("/images/region1o.png").toExternalForm()));
+        ImageView region2oImageView = new ImageView(new Image(getClass().getResource("/images/region2o.png").toExternalForm()));
+        ImageView region3oImageView = new ImageView(new Image(getClass().getResource("/images/region3o.png").toExternalForm()));
 
         // add images
         region1Layer.getChildren().add(region1ImageView);
         region2Layer.getChildren().add(region2ImageView);
         region3Layer.getChildren().add(region3ImageView);
         // mouse handler
+
+        region1Layer.setOnMouseEntered(e -> {
+            if (counter1 == 0){
+            region1Layer.getChildren().clear();
+            region1Layer.getChildren().add(region1oImageView);}
+        });
+        region1Layer.setOnMouseExited(e -> {
+            if (counter1 == 0){
+            region1Layer.getChildren().clear();
+            region1Layer.getChildren().add(region1ImageView);
+            }
+        });
+        region2Layer.setOnMouseEntered(e -> {
+            if(counter2 == 0){
+            region2Layer.getChildren().clear();
+            region2Layer.getChildren().add(region2oImageView);
+            }
+        });
+        region2Layer.setOnMouseExited(e -> {
+            if(counter2 == 0){
+            region2Layer.getChildren().clear();
+            region2Layer.getChildren().add(region2ImageView);
+            }
+        });
+        region3Layer.setOnMouseEntered(e -> {
+            if (counter3 == 0){
+            region3Layer.getChildren().clear();
+            region3Layer.getChildren().add(region3oImageView);
+            }
+        });
+        region3Layer.setOnMouseExited(e -> {
+            if (counter3 == 0){
+            region3Layer.getChildren().clear();
+            region3Layer.getChildren().add(region3ImageView);
+            }
+        });
         region1Layer.setOnMousePressed(e -> {
             ImageView temp = (ImageView) region3Layer.getChildren().get(0);
             if (counter1 == 1) {
                 regionSetter("Comunidad");
                 pie.setClockwise(false);
                 pie.setData(d.getPieData(d.getResultadosGlobales(), d.getPartidosenOrdenGlobal()));
+                bar.setData(d.getBarData(d.getPartidoAnyoGlobal(), d.getPartidosenOrdenGlobal()));
                 region1Layer.getChildren().clear();
                 region1Layer.getChildren().add(region1ImageView);
                 counter1--;
             } else {
                 regionSetter("Castellon");
                 pie.setClockwise(true);
-                pie.setData(d.getPieData(d.getResultadosCastellon(),d.getPartidosenOrdenCastellon()));
+                pie.setData(d.getPieData(d.getResultadosCastellon(), d.getPartidosenOrdenCastellon()));
+                bar.setData(d.getBarData(d.getPartidoAnyoCastellon(), d.getPartidosenOrdenCastellon()));
                 region1Layer.getChildren().clear();
                 region1Layer.getChildren().add(region1sImageView);
                 if (counter2 == 1) {
@@ -193,12 +234,14 @@ public class DashboardController extends HBox {
             if (counter2 == 1) {
                 regionSetter("Comunidad");
                 pie.setClockwise(false);
-                pie.setData(d.getPieData(d.getResultadosGlobales(),d.getPartidosenOrdenGlobal()));
+                pie.setData(d.getPieData(d.getResultadosGlobales(), d.getPartidosenOrdenGlobal()));
+                bar.setData(d.getBarData(d.getPartidoAnyoGlobal(), d.getPartidosenOrdenGlobal()));
                 region2Layer.getChildren().clear();
                 region2Layer.getChildren().add(region2ImageView);
                 counter2--;
             } else {
                 regionSetter("Valencia");
+                bar.setData(d.getBarData(d.getPartidoAnyoValencia(), d.getPartidosenOrdenValencia()));
                 pie.setClockwise(true);
                 pie.setData(d.getPieData(d.getResultadosValencia(), d.getPartidosenOrdenValencia()));
                 region2Layer.getChildren().clear();
@@ -219,15 +262,17 @@ public class DashboardController extends HBox {
         region3Layer.setOnMousePressed(e -> {
 
             ImageView temp = (ImageView) region3Layer.getChildren().get(0);
-            if (counter3 == 1) {                
+            if (counter3 == 1) {
                 regionSetter("Comunidad");
                 pie.setClockwise(false);
                 pie.setData(d.getPieData(d.getResultadosGlobales(), d.getPartidosenOrdenGlobal()));
+                bar.setData(d.getBarData(d.getPartidoAnyoGlobal(), d.getPartidosenOrdenGlobal()));
                 region3Layer.getChildren().clear();
                 region3Layer.getChildren().add(region3ImageView);
                 counter3--;
             } else {
                 regionSetter("Alicante");
+                bar.setData(d.getBarData(d.getPartidoAnyoAlicante(), d.getPartidosenOrdenAlicante()));
                 pie.setClockwise(true);
                 pie.setData(d.getPieData(d.getResultadosAlicante(), d.getPartidosenOrdenAlicante()));
                 region3Layer.getChildren().clear();

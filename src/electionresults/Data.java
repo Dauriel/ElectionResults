@@ -164,14 +164,13 @@ public class Data {
 
     public ObservableList<XYChart.Series<String, Integer>> getBarData(Map<String, Integer> aux, ArrayList<String> orden) {
         ObservableList<XYChart.Series<String, Integer>> auxList = FXCollections.observableArrayList();
-        for (int i = 0; i < orden.size(); i++) {
+        for (int i = 0; i < aux.size(); i++) {
             barData = new XYChart.Series<String, Integer>();
             String partido = orden.get(i);
             int votos = aux.get(partido);
             if (votos > 0) {
                 barData.setName(partido);
-                barData.getData().add(new XYChart.Data("" + x, votos));
-                
+                barData.getData().add(new XYChart.Data("" + x, votos));                
                 auxList.add(barData);
             }            
         }
