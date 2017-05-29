@@ -6,6 +6,7 @@
 package electionresults;
 
 import electionresults.model.ElectionResults;
+import electionresults.model.Party;
 import electionresults.model.PartyResults;
 import electionresults.model.RegionResults;
 import electionresults.persistence.io.DataAccessLayer;
@@ -36,7 +37,6 @@ public class Data {
     private RegionResults cvinfo;
     private BarChart<String, Integer> bar;
 
-    
     //PRESCINDIBLES 
     private ArrayList<String> partidosenOrdenGlobal = new ArrayList();
     private ArrayList<String> partidosenOrdenValencia = new ArrayList();
@@ -47,11 +47,11 @@ public class Data {
     private Map<String, Integer> resultadosAlicante = new HashMap<String, Integer>();
     private Map<String, Integer> resultadosCastellon = new HashMap<String, Integer>();
     //IMPRESCINDIBLES
-    private Map<String, List<PartyResults>> general = new HashMap<String, List<PartyResults>>(); 
+    private Map<String, List<PartyResults>> general = new HashMap<String, List<PartyResults>>();
     private Map<String, List<PartyResults>> partyResultsCastellon = new HashMap<String, List<PartyResults>>();
     private Map<String, List<PartyResults>> partyComunidades = new HashMap<String, List<PartyResults>>();
     private Map<String, List<PartyResults>> partyResultsValencia = new HashMap<String, List<PartyResults>>();
-    private Map<String, List<PartyResults>> partyResultsAlicante = new HashMap<String, List<PartyResults>>();    
+    private Map<String, List<PartyResults>> partyResultsAlicante = new HashMap<String, List<PartyResults>>();
     private List<PartyResults> partyValencia;
     private List<PartyResults> partyCastellon;
     private List<PartyResults> partyAlicante;
@@ -98,10 +98,10 @@ public class Data {
     public Data(int year) {
         x = year;
         electionResult = DataAccessLayer.getElectionResults(x);
-        comunidad = electionResult.getRegionProvinces().keySet();        
+        comunidad = electionResult.getRegionProvinces().keySet();
         cvinfo = electionResult.getGlobalResults();
-        test = cvinfo;   
-        mediaGeneral = (double)(test.getPollData().getVotes()* 100) / (test.getPollData().getCensus());
+        test = cvinfo;
+        mediaGeneral = (double) (test.getPollData().getVotes() * 100) / (test.getPollData().getCensus());
         general.put("General", cvinfo.getPartyResultsSorted());
         for (Map.Entry<String, String> entry : electionResult.getRegionProvinces().entrySet()) {
             String aux = entry.getValue();
@@ -119,7 +119,7 @@ public class Data {
             resultadosGlobales.put(p.getParty(), p.getSeats());
         }
         test = electionResult.getProvinceResults("Valencia");
-        mediaValencia = (double)(test.getPollData().getVotes()* 100) / (test.getPollData().getCensus());
+        mediaValencia = (double) (test.getPollData().getVotes() * 100) / (test.getPollData().getCensus());
         partyValencia = electionResult.getProvinceResults("Valencia").getPartyResultsSorted();
         for (PartyResults p : partyValencia) {
             partidosenOrdenValencia.add(p.getParty());
@@ -127,14 +127,14 @@ public class Data {
 
         }
         test = electionResult.getProvinceResults("Castellón");
-        mediaCastellon = (double)(test.getPollData().getVotes()* 100) / (test.getPollData().getCensus());
+        mediaCastellon = (double) (test.getPollData().getVotes() * 100) / (test.getPollData().getCensus());
         partyCastellon = electionResult.getProvinceResults("Castellón").getPartyResultsSorted();
         for (PartyResults p : partyCastellon) {
             partidosenOrdenCastellon.add(p.getParty());
             resultadosCastellon.put(p.getParty(), p.getSeats());
         }
         test = electionResult.getProvinceResults("Alicante");
-        mediaAlicante = (double)(test.getPollData().getVotes()* 100) / (test.getPollData().getCensus());
+        mediaAlicante = (double) (test.getPollData().getVotes() * 100) / (test.getPollData().getCensus());
         partyAlicante = electionResult.getProvinceResults("Alicante").getPartyResultsSorted();
         for (PartyResults p : partyAlicante) {
             partidosenOrdenAlicante.add(p.getParty());
@@ -142,7 +142,7 @@ public class Data {
         }
 
         for (String s : valencia) {
-            RegionResults r = electionResult.getRegionResults(s);            
+            RegionResults r = electionResult.getRegionResults(s);
             partyResultsValencia.put(s, r.getPartyResultsSorted());
         }
         for (String s : alicante) {
@@ -197,7 +197,7 @@ public class Data {
     public Map<String, List<PartyResults>> getPartyResultsAlicante() {
         return partyResultsAlicante;
     }
-    
+
     public Map<String, Integer> getResultadosValencia() {
         return resultadosValencia;
     }
@@ -226,21 +226,20 @@ public class Data {
         return pieData;
     }
 
-
     public ObservableList<XYChart.Series<String, Integer>> getBarData(Map<String, List<PartyResults>> aux, String comarca, double percent) {
         ObservableList<XYChart.Series<String, Integer>> auxList = FXCollections.observableArrayList();
         List<PartyResults> auxArray = aux.get(comarca);
         for (PartyResults p : auxArray) {
-            if(p.getPercentage() >= percent){
-            barData = new XYChart.Series<String, Integer>();
-            barData.setName(p.getParty());
-            barData.getData().add(new XYChart.Data("" + x, p.getVotes()));
-            barData.getData().forEach(data -> {
-                Label label = new Label(data.getYValue() + "");
-                data.setNode(new StackPane(label));
-                label.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
-            });
-            auxList.add(barData);
+            if (p.getPercentage() >= percent) {
+                barData = new XYChart.Series<String, Integer>();
+                barData.setName(p.getParty());
+                barData.getData().add(new XYChart.Data("" + x, p.getVotes()));
+                barData.getData().forEach(data -> {
+                    Label label = new Label(data.getYValue() + "");
+                    data.setNode(new StackPane(label));
+                    label.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
+                });
+                auxList.add(barData);
             }
         }
         return auxList;
@@ -260,6 +259,40 @@ public class Data {
 
     public ArrayList<String> getPartidosenOrdenAlicante() {
         return partidosenOrdenAlicante;
-    }   
+    }
+
+    public Map<String, Double> votesPerParty(Set<String> partidos) {
+        Map<String, Double> mapFinal = new HashMap<String, Double>();
+        for (String aux : partidos) {
+            double finalvalue = 0;            
+            List<String> acron = new ArrayList<String>();
+            if(aux.equals("PP")){
+            acron = Party.PP.getAcronyms();
+            }if(aux.equals("UV")){
+            acron = Party.UV.getAcronyms();
+            }if(aux.equals("PSOE")){
+            acron = Party.PSOE.getAcronyms();
+            }if(aux.equals("PODEMOS")){
+            acron = Party.PODEMOS.getAcronyms();
+            }if(aux.equals("CS")){
+            acron = Party.CS.getAcronyms();
+            }if(aux.equals("UPYD")){
+            acron = Party.UPYD.getAcronyms();
+            }if(aux.equals("EU")){
+            acron = Party.EU.getAcronyms();
+            }if(aux.equals("COMPROMIS")){
+            acron = Party.COMPROMIS.getAcronyms();
+            }
+            for (String s : acron) {
+                if(cvinfo.getPartyResults(s) != null){
+                finalvalue += cvinfo.getPartyResults(s).getSeats();}         
+            }
+            if(finalvalue != 0){
+            mapFinal.put(aux, finalvalue);
+            }
+            
+        }
+        return mapFinal;
+    }
 
 }

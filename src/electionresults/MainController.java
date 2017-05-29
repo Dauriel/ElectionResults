@@ -10,14 +10,18 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTabPane;
 import electionresults.model.ElectionResults;
+import electionresults.model.Party;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
-import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -25,7 +29,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
@@ -67,30 +70,31 @@ public class MainController implements Initializable {
     @FXML
     private BarChart<String, Double> barChart;
     @FXML
-    private JFXButton button2;
-    @FXML
-    private JFXButton button3;
-    @FXML
-    private JFXButton button4;
-    @FXML
-    private JFXButton button5;
-    @FXML
-    private JFXButton button6;
-    @FXML
-    private JFXButton button7;
-    @FXML
-    private JFXButton button8;
-    @FXML
-    private JFXButton button1;
-    @FXML
-    private StackedBarChart<?, ?> stackedBarChart;
+    private StackedBarChart<String, Double> stackedBarChart;
     @FXML
     private LineChart<?, ?> lineChart;
     @FXML
     private VBox loadingBox;
     @FXML
     private StackPane stackPane;
-    private String[] years = {"1995", "1999", "2003", "2007", "2011", "2015"};
+    private int[] years = {1995, 1999, 2003, 2007, 2011, 2015};
+    private Set<String> partyNames = new HashSet<String>(Arrays.asList("PP", "PSOE", "PODEMOS", "COMPROMIS", "CS", "UV", "UPYD", "EU"));
+    @FXML
+    private JFXButton PSOE;
+    @FXML
+    private JFXButton PP;
+    @FXML
+    private JFXButton PODEMOS;
+    @FXML
+    private JFXButton COMPROMIS;
+    @FXML
+    private JFXButton CS;
+    @FXML
+    private JFXButton UV;
+    @FXML
+    private JFXButton UPYD;
+    @FXML
+    private JFXButton EU;
 
     /**
      * Initializes the controller class.
@@ -132,6 +136,7 @@ public class MainController implements Initializable {
                 }
                 displayTutorial();
                 generateBarChart();
+                createStacked(partyNames);
             }
         };
 
@@ -175,8 +180,8 @@ public class MainController implements Initializable {
     }
 
     public void generateBarChart() {
-        
-        ObservableList<XYChart.Series<String, Double>> auxListaa = FXCollections.observableArrayList();        
+
+        ObservableList<XYChart.Series<String, Double>> auxListaa = FXCollections.observableArrayList();
         XYChart.Series<String, Double> barData1 = new XYChart.Series<String, Double>();
         XYChart.Series<String, Double> barData2 = new XYChart.Series<String, Double>();
         XYChart.Series<String, Double> barData3 = new XYChart.Series<String, Double>();
@@ -185,37 +190,82 @@ public class MainController implements Initializable {
         barData3.setName("Castellón");
         barData2.setName("Valencia");
         barData1.setName("Comunidad Valenciana");
-        
-        for(int i = 0; i< years.length; i++){
-         int valoraux = parseInt(years[i]);
-         barData1.getData().add(new XYChart.Data(years[i], datos.get(valoraux).getMediaGeneral()));
-         barData2.getData().add(new XYChart.Data(years[i], datos.get(valoraux).getMediaValencia()));
-         barData3.getData().add(new XYChart.Data(years[i], datos.get(valoraux).getMediaCastellon()));
-         barData4.getData().add(new XYChart.Data(years[i], datos.get(valoraux).getMediaAlicante()));
+
+        for (int i = 0; i < years.length; i++) {
+            barData1.getData().add(new XYChart.Data("" + years[i], datos.get(years[i]).getMediaGeneral()));
+            barData2.getData().add(new XYChart.Data("" + years[i], datos.get(years[i]).getMediaValencia()));
+            barData3.getData().add(new XYChart.Data("" + years[i], datos.get(years[i]).getMediaCastellon()));
+            barData4.getData().add(new XYChart.Data("" + years[i], datos.get(years[i]).getMediaAlicante()));
         }
-        
+
         auxListaa.add(barData1);
         auxListaa.add(barData2);
         auxListaa.add(barData3);
         auxListaa.add(barData4);
         barChart.setData(auxListaa);
     }
-    private void createStacked(){
-                 
-    
+
+    private void createStacked(Set<String> partii) {
+        Set<String> partyParty = partii;
+        ArrayList<Map<String, Double>> mapFinal = new ArrayList<Map<String, Double>>();
+        for (Integer i : years) {
+            mapFinal.add(datos.get(i).votesPerParty(partyParty));
+        }
+        ObservableList<XYChart.Series<String, Double>> auxListaa = FXCollections.observableArrayList();
+        ArrayList<XYChart.Series<String, Double>> barDatas = new ArrayList<XYChart.Series<String, Double>>();
+        for (String s : partyParty) {
+            XYChart.Series<String, Double> auxBar = new XYChart.Series<String, Double>();
+            auxBar.setName(s);
+            barDatas.add(auxBar);
+        }
+
+        for (int i = 0; i < partyParty.size(); i++) {
+            XYChart.Series<String, Double> auxBar = barDatas.get(i);
+            for (int j = 0; j < years.length; j++) {
+                Map<String, Double> auxMap = mapFinal.get(j);
+                String s = auxBar.getName();
+                if(auxMap.get(s) != null){
+                auxBar.getData().add(new XYChart.Data("" + years[j], auxMap.get(s)));
+                }
+            }
+            auxListaa.add(auxBar);
+        }        
+        for(XYChart.Series<String, Double> aux : auxListaa){
+        }
+        stackedBarChart.setData(auxListaa);
     }
+
     private VBox createTutorialPage(Integer pageIndex) {
         VBox box = new VBox();
         Image img = images[pageIndex];
         ImageView iv = new ImageView(img);
         box.setAlignment(Pos.CENTER);
         Label desc = new Label();
-        if(pageIndex == 0){desc = new Label("Select the year");}
-        if(pageIndex == 1){desc = new Label("Choose the province or go back to community");}
-        if(pageIndex == 2){desc = new Label("Pick the region");}
-        if(pageIndex == 3){desc = new Label("Watch the results!");}
+        if (pageIndex == 0) {
+            desc = new Label("Select the year");
+        }
+        if (pageIndex == 1) {
+            desc = new Label("Choose the province or go back to community");
+        }
+        if (pageIndex == 2) {
+            desc = new Label("Pick the region");
+        }
+        if (pageIndex == 3) {
+            desc = new Label("Watch the results!");
+        }
         desc.setStyle("-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;");
         box.getChildren().addAll(iv, desc);
         return box;
+    }
+
+    @FXML
+    private void toggleButton(ActionEvent event) {
+        Button i = (Button) event.getSource();
+        String s = i.getId();
+        Set<String> temp = partyNames;
+        if(temp.contains(s)){
+        temp.remove(s);}
+        else{temp.add(s);}
+        createStacked(temp);
     }
 }
