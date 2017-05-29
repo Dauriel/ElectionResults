@@ -96,7 +96,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         FadeTransition fadeIn = new FadeTransition(Duration.seconds(5), veil);
-        fadeIn.setFromValue(0.7);
+        fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.setCycleCount(1);
         fadeIn.play();
@@ -143,6 +143,11 @@ public class MainController implements Initializable {
     public void displayTutorial() {
         StackPane s = stackPane;
         Region r = new Region();
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(10), s);
+        fadeIn.setFromValue(0.5);
+        fadeIn.setToValue(1);
+        fadeIn.setCycleCount(1);
+        fadeIn.play();
         r.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6) ");
         r.setEffect(new GaussianBlur(100));
         VBox outerBox = new VBox();
