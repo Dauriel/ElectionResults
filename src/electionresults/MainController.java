@@ -95,7 +95,7 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(5), veil);
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(3), veil);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.setCycleCount(1);
@@ -143,7 +143,7 @@ public class MainController implements Initializable {
     public void displayTutorial() {
         StackPane s = stackPane;
         Region r = new Region();
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(10), s);
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(3), s);
         fadeIn.setFromValue(0.5);
         fadeIn.setToValue(1);
         fadeIn.setCycleCount(1);
@@ -153,10 +153,10 @@ public class MainController implements Initializable {
         VBox outerBox = new VBox();
         outerBox.setAlignment(Pos.CENTER);
         //Images for our pages
-        images[0] = new Image("/images/region1.png");
-        images[1] = new Image("/images/region1.png");
-        images[2] = new Image("/images/region1.png");
-        images[3] = new Image("/images/region1.png");
+        images[0] = new Image("/images/anyo.gif");
+        images[1] = new Image("/images/province.gif");
+        images[2] = new Image("/images/region.gif");
+        images[3] = new Image("/images/graph.gif");
         pagination = new Pagination(4);
         pagination.setPageFactory((Integer pageIndex) -> createTutorialPage(pageIndex));
         pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
@@ -219,7 +219,11 @@ public class MainController implements Initializable {
         Image img = images[pageIndex];
         ImageView iv = new ImageView(img);
         box.setAlignment(Pos.CENTER);
-        Label desc = new Label("Choose the province");
+        Label desc = new Label();
+        if(pageIndex == 0){desc = new Label("Select the year");}
+        if(pageIndex == 1){desc = new Label("Choose the province or go back to community");}
+        if(pageIndex == 2){desc = new Label("Pick the region");}
+        if(pageIndex == 3){desc = new Label("Watch the results!");}
         desc.setStyle("-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;");
         box.getChildren().addAll(iv, desc);
         return box;
