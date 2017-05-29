@@ -19,14 +19,25 @@ import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.Tab;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 /**
@@ -40,6 +51,8 @@ public class MainController implements Initializable {
     private Region veil;
     @FXML
     private JFXSpinner spinner;
+    private static Image[] images = new Image[4];
+    private Pagination pagination;
     private ElectionResults electionResults;
     private int year;
     @FXML
@@ -72,19 +85,23 @@ public class MainController implements Initializable {
     private StackedBarChart<?, ?> stackedBarChart;
     @FXML
     private LineChart<?, ?> lineChart;
+    @FXML
+    private VBox loadingBox;
+    @FXML
+    private StackPane stackPane;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(3),veil);
-        fadeIn.setFromValue(0);
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(5), veil);
+        fadeIn.setFromValue(0.7);
         fadeIn.setToValue(1);
         fadeIn.setCycleCount(1);
         fadeIn.play();
         //Setting task with spinner and veil 
-        veil.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6)");
+        veil.setStyle("-fx-background-color: rgba(0, 0, 0, 0.95)");
         Task<Map<Integer, Data>> task = new Task<Map<Integer, Data>>() {
             @Override
             protected Map<Integer, Data> call() throws Exception {
@@ -97,32 +114,57 @@ public class MainController implements Initializable {
                 auxil.put(2015, new Data(2015));
                 return auxil;
             }
+
             @Override
             protected void succeeded() {
-                FadeTransition fadeOut = new FadeTransition(Duration.seconds(3),veil);
-                fadeOut.setFromValue(1);
-                fadeOut.setToValue(0);
-                fadeOut.setCycleCount(1);
-                fadeOut.play();
-                datos = getValue();
                 super.succeeded();
-            year = Integer.parseInt(tabPane.getSelectionModel().getSelectedItem().getText());
-            for (Tab t : tabPane.getTabs()) {
-                try {
-                    int anyo = parseInt(t.getText());
-                    dController = new DashboardController(datos.get(anyo));
-                    t.setContent(dController);
-                } catch (NumberFormatException e) {}
-            }
-            generateBarChart();
+                datos = getValue();
+                year = Integer.parseInt(tabPane.getSelectionModel().getSelectedItem().getText());
+                for (Tab t : tabPane.getTabs()) {
+                    try {
+                        int anyo = parseInt(t.getText());
+                        dController = new DashboardController(datos.get(anyo));
+                        t.setContent(dController);
+                    } catch (NumberFormatException e) {
+                    }
+                }
+                displayTutorial();
+                generateBarChart();
             }
         };
 
         veil.visibleProperty().bind(task.runningProperty());
-        spinner.visibleProperty().bind(task.runningProperty());
+        loadingBox.visibleProperty().bind(task.runningProperty());
         Thread th = new Thread(task);
         th.setDaemon(true);
         th.start();
+    }
+
+    public void displayTutorial() {
+        StackPane s = stackPane;
+        Region r = new Region();
+        r.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6) ");
+        r.setEffect(new GaussianBlur(100));
+        VBox outerBox = new VBox();
+        outerBox.setAlignment(Pos.CENTER);
+        //Images for our pages
+        images[0] = new Image("/images/region1.png");
+        images[1] = new Image("/images/region1.png");
+        images[2] = new Image("/images/region1.png");
+        images[3] = new Image("/images/region1.png");
+        pagination = new Pagination(4);
+        pagination.setPageFactory((Integer pageIndex) -> createTutorialPage(pageIndex));
+        pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
+        Button styleButton = new Button("Start Now!");
+        styleButton.setStyle("-fx-background-color: #009688; -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: white;");
+        styleButton.setOnAction((ActionEvent me) -> {
+            r.setVisible(false);
+            outerBox.setVisible(false);
+        });
+        Label welcome = new Label("Welcome to Election Results!");
+        welcome.setStyle("-fx-font-size: 32; -fx-font-weight: bold; -fx-text-fill: white;");
+        outerBox.getChildren().addAll(welcome, pagination, styleButton);
+        s.getChildren().addAll(r, outerBox);
     }
 
     public void generateBarChart() {
@@ -165,5 +207,16 @@ public class MainController implements Initializable {
         auxListaa.add(barData3);
         auxListaa.add(barData4);
         barChart.setData(auxListaa);
+    }
+
+    private VBox createTutorialPage(Integer pageIndex) {
+        VBox box = new VBox();
+        Image img = images[pageIndex];
+        ImageView iv = new ImageView(img);
+        box.setAlignment(Pos.CENTER);
+        Label desc = new Label("Choose the province");
+        desc.setStyle("-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;");
+        box.getChildren().addAll(iv, desc);
+        return box;
     }
 }
