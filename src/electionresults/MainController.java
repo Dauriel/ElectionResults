@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
+import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
@@ -31,7 +33,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.Tab;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -89,6 +90,7 @@ public class MainController implements Initializable {
     private VBox loadingBox;
     @FXML
     private StackPane stackPane;
+    private String[] years = {"1995", "1999", "2003", "2007", "2011", "2015"};
 
     /**
      * Initializes the controller class.
@@ -173,47 +175,35 @@ public class MainController implements Initializable {
     }
 
     public void generateBarChart() {
+        
+        ObservableList<XYChart.Series<String, Double>> auxListaa = FXCollections.observableArrayList();        
         XYChart.Series<String, Double> barData1 = new XYChart.Series<String, Double>();
-        ObservableList<XYChart.Series<String, Double>> auxListaa = FXCollections.observableArrayList();
-        barData1.setName("Comunidad Valenciana");
-        barData1.getData().add(new XYChart.Data("" + 1995, datos.get(1995).getMediaGeneral()));
-        barData1.getData().add(new XYChart.Data("" + 1999, datos.get(1999).getMediaGeneral()));
-        barData1.getData().add(new XYChart.Data("" + 2003, datos.get(2003).getMediaGeneral()));
-        barData1.getData().add(new XYChart.Data("" + 2007, datos.get(2007).getMediaGeneral()));
-        barData1.getData().add(new XYChart.Data("" + 2011, datos.get(2011).getMediaGeneral()));
-        barData1.getData().add(new XYChart.Data("" + 2015, datos.get(2015).getMediaGeneral()));
         XYChart.Series<String, Double> barData2 = new XYChart.Series<String, Double>();
-        barData2.setName("Valencia");
-        barData2.getData().add(new XYChart.Data("" + 1995, datos.get(1995).getMediaValencia()));
-        barData2.getData().add(new XYChart.Data("" + 1999, datos.get(1999).getMediaValencia()));
-        barData2.getData().add(new XYChart.Data("" + 2003, datos.get(2003).getMediaValencia()));
-        barData2.getData().add(new XYChart.Data("" + 2007, datos.get(2007).getMediaValencia()));
-        barData2.getData().add(new XYChart.Data("" + 2011, datos.get(2011).getMediaValencia()));
-        barData2.getData().add(new XYChart.Data("" + 2015, datos.get(2015).getMediaValencia()));
         XYChart.Series<String, Double> barData3 = new XYChart.Series<String, Double>();
-        barData3.setName("Castellón");
-        barData3.getData().add(new XYChart.Data("" + 1995, datos.get(1995).getMediaCastellon()));
-        barData3.getData().add(new XYChart.Data("" + 1999, datos.get(1999).getMediaCastellon()));
-        barData3.getData().add(new XYChart.Data("" + 2003, datos.get(2003).getMediaCastellon()));
-        barData3.getData().add(new XYChart.Data("" + 2007, datos.get(2007).getMediaCastellon()));
-        barData3.getData().add(new XYChart.Data("" + 2011, datos.get(2011).getMediaCastellon()));
-        barData3.getData().add(new XYChart.Data("" + 2015, datos.get(2015).getMediaCastellon()));
         XYChart.Series<String, Double> barData4 = new XYChart.Series<String, Double>();
         barData4.setName("Alicante");
-        barData4.getData().add(new XYChart.Data("" + 1995, datos.get(1995).getMediaAlicante()));
-        barData4.getData().add(new XYChart.Data("" + 1999, datos.get(1999).getMediaAlicante()));
-        barData4.getData().add(new XYChart.Data("" + 2003, datos.get(2003).getMediaAlicante()));
-        barData4.getData().add(new XYChart.Data("" + 2007, datos.get(2007).getMediaAlicante()));
-        barData4.getData().add(new XYChart.Data("" + 2011, datos.get(2011).getMediaAlicante()));
-        barData4.getData().add(new XYChart.Data("" + 2015, datos.get(2015).getMediaAlicante()));
-
+        barData3.setName("Castellón");
+        barData2.setName("Valencia");
+        barData1.setName("Comunidad Valenciana");
+        
+        for(int i = 0; i< years.length; i++){
+         int valoraux = parseInt(years[i]);
+         barData1.getData().add(new XYChart.Data(years[i], datos.get(valoraux).getMediaGeneral()));
+         barData2.getData().add(new XYChart.Data(years[i], datos.get(valoraux).getMediaValencia()));
+         barData3.getData().add(new XYChart.Data(years[i], datos.get(valoraux).getMediaCastellon()));
+         barData4.getData().add(new XYChart.Data(years[i], datos.get(valoraux).getMediaAlicante()));
+        }
+        
         auxListaa.add(barData1);
         auxListaa.add(barData2);
         auxListaa.add(barData3);
         auxListaa.add(barData4);
         barChart.setData(auxListaa);
     }
-
+    private void createStacked(){
+                 
+    
+    }
     private VBox createTutorialPage(Integer pageIndex) {
         VBox box = new VBox();
         Image img = images[pageIndex];
