@@ -10,7 +10,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTabPane;
 import electionresults.model.ElectionResults;
-import electionresults.model.Party;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
 import java.util.ArrayList;
@@ -78,7 +77,9 @@ public class MainController implements Initializable {
     @FXML
     private StackPane stackPane;
     private int[] years = {1995, 1999, 2003, 2007, 2011, 2015};
-    private Set<String> partyNames = new HashSet<String>(Arrays.asList("PP", "PSOE", "PODEMOS", "COMPROMIS", "CS", "UV", "UPYD", "EU"));
+    private String[] partyNamesS = {"PP", "PSOE",  "UPYD", "UV", "EU", "COMPROMIS", "CS","PODEMOS"};
+    private String[] partyNamesS2 = {"PP", "PSOE",  "UPYD", "UV", "EU", "COMPROMIS", "CS","PODEMOS"};
+    private Set<String> partyNames = new HashSet<String>(Arrays.asList("PP", "PSOE",  "UPYD", "UV", "EU", "COMPROMIS", "CS","PODEMOS"));
     @FXML
     private JFXButton PSOE;
     @FXML
@@ -213,10 +214,12 @@ public class MainController implements Initializable {
         }
         ObservableList<XYChart.Series<String, Double>> auxListaa = FXCollections.observableArrayList();
         ArrayList<XYChart.Series<String, Double>> barDatas = new ArrayList<XYChart.Series<String, Double>>();
-        for (String s : partyParty) {
+        for (String s : partyNamesS) {
+            if(s != null){
             XYChart.Series<String, Double> auxBar = new XYChart.Series<String, Double>();
             auxBar.setName(s);
             barDatas.add(auxBar);
+            }
         }
 
         for (int i = 0; i < partyParty.size(); i++) {
@@ -224,13 +227,13 @@ public class MainController implements Initializable {
             for (int j = 0; j < years.length; j++) {
                 Map<String, Double> auxMap = mapFinal.get(j);
                 String s = auxBar.getName();
-                if(auxMap.get(s) != null){
-                auxBar.getData().add(new XYChart.Data("" + years[j], auxMap.get(s)));
+                if (auxMap.get(s) != null) {
+                    auxBar.getData().add(new XYChart.Data("" + years[j], auxMap.get(s)));
                 }
             }
             auxListaa.add(auxBar);
-        }        
-        for(XYChart.Series<String, Double> aux : auxListaa){
+        }
+        for (XYChart.Series<String, Double> aux : auxListaa) {
         }
         stackedBarChart.setData(auxListaa);
     }
@@ -262,10 +265,34 @@ public class MainController implements Initializable {
     private void toggleButton(ActionEvent event) {
         Button i = (Button) event.getSource();
         String s = i.getId();
-        Set<String> temp = partyNames;
-        if(temp.contains(s)){
-        temp.remove(s);}
-        else{temp.add(s);}
-        createStacked(temp);
+        createStacked(isInArray(s));
     }
+
+    private Set<String> isInArray(String s) {
+        int pointer = -1;
+        int it = 0;
+        for (String x : partyNamesS2) {
+            if (x.equals(s)) {
+                pointer = it;
+            }
+            it++;
+        }
+        Set<String> auxil = new HashSet<String>();
+        if (pointer != -1) {
+            if (partyNamesS[pointer] != null) {
+                partyNamesS[pointer] = null;
+            } else {                
+                partyNamesS[pointer] = s;
+            }
+            for (int i = 0; i < partyNamesS.length; i++) {
+                if (partyNamesS[i] != null) {
+                    auxil.add(partyNamesS[i]);
+                }
+
+            }
+        }
+        return auxil;
+
+    }
+
 }
