@@ -61,7 +61,21 @@ public class Data {
     private Set<String> castellon = new HashSet<String>();
     private Set<String> alicante = new HashSet<String>();
     private double mediaGeneral, mediaValencia, mediaCastellon, mediaAlicante;
-    private RegionResults test;
+    private RegionResults regionValencia;
+
+    public RegionResults getRegionValencia() {
+        return regionValencia;
+    }
+
+    public RegionResults getRegionCastellon() {
+        return regionCastellon;
+    }
+
+    public RegionResults getRegionAlicante() {
+        return regionAlicante;
+    }
+    private RegionResults regionCastellon;
+    private RegionResults regionAlicante;
 
     public List<PartyResults> getPartyValencia() {
         return partyValencia;
@@ -100,8 +114,7 @@ public class Data {
         electionResult = DataAccessLayer.getElectionResults(x);
         comunidad = electionResult.getRegionProvinces().keySet();
         cvinfo = electionResult.getGlobalResults();
-        test = cvinfo;
-        mediaGeneral = (double) (test.getPollData().getVotes() * 100) / (test.getPollData().getCensus());
+        mediaGeneral = (double) (cvinfo.getPollData().getVotes() * 100) / (cvinfo.getPollData().getCensus());
         general.put("General", cvinfo.getPartyResultsSorted());
         for (Map.Entry<String, String> entry : electionResult.getRegionProvinces().entrySet()) {
             String aux = entry.getValue();
@@ -118,23 +131,23 @@ public class Data {
             partidosenOrdenGlobal.add(p.getParty());
             resultadosGlobales.put(p.getParty(), p.getSeats());
         }
-        test = electionResult.getProvinceResults("Valencia");
-        mediaValencia = (double) (test.getPollData().getVotes() * 100) / (test.getPollData().getCensus());
+        regionValencia = electionResult.getProvinceResults("Valencia");
+        mediaValencia = (double) (regionValencia.getPollData().getVotes() * 100) / (regionValencia.getPollData().getCensus());
         partyValencia = electionResult.getProvinceResults("Valencia").getPartyResultsSorted();
         for (PartyResults p : partyValencia) {
             partidosenOrdenValencia.add(p.getParty());
             resultadosValencia.put(p.getParty(), p.getSeats());
 
         }
-        test = electionResult.getProvinceResults("Castellón");
-        mediaCastellon = (double) (test.getPollData().getVotes() * 100) / (test.getPollData().getCensus());
+        regionCastellon = electionResult.getProvinceResults("Castellón");
+        mediaCastellon = (double) (regionCastellon.getPollData().getVotes() * 100) / (regionCastellon.getPollData().getCensus());
         partyCastellon = electionResult.getProvinceResults("Castellón").getPartyResultsSorted();
         for (PartyResults p : partyCastellon) {
             partidosenOrdenCastellon.add(p.getParty());
             resultadosCastellon.put(p.getParty(), p.getSeats());
         }
-        test = electionResult.getProvinceResults("Alicante");
-        mediaAlicante = (double) (test.getPollData().getVotes() * 100) / (test.getPollData().getCensus());
+        regionAlicante = electionResult.getProvinceResults("Alicante");
+        mediaAlicante = (double) (regionAlicante.getPollData().getVotes() * 100) / (regionAlicante.getPollData().getCensus());
         partyAlicante = electionResult.getProvinceResults("Alicante").getPartyResultsSorted();
         for (PartyResults p : partyAlicante) {
             partidosenOrdenAlicante.add(p.getParty());
