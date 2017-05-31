@@ -136,6 +136,8 @@ public class MainController implements Initializable {
                     }
                 }
                 displayTutorial();
+                barChart.getXAxis().setAnimated(false);
+                stackedBarChart.getXAxis().setAnimated(false);
                 generateBarChart();
                 createStacked(partyNames);
             }

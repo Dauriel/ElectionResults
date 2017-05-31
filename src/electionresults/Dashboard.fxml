@@ -51,7 +51,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="595.0" prefWidth="321.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TableView fx:id="summaryTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="176.0" prefWidth="321.0" stylesheets="@tableview.css">
+                        <TableView fx:id="summaryTable" prefHeight="243.0" prefWidth="299.0" stylesheets="@tableview.css">
                           <columns>
                             <TableColumn fx:id="summaryCol" prefWidth="95.0" text="Summary" />
                             <TableColumn fx:id="numbersCol" prefWidth="126.0" />
@@ -61,7 +61,7 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <TableView fx:id="partyTable" prefHeight="419.0" prefWidth="321.0" stylesheets="@tableview.css" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="partyTable" prefHeight="361.0" prefWidth="299.0" stylesheets="@tableview.css" VBox.vgrow="ALWAYS">
                           <columns>
                             <TableColumn fx:id="partyCol" prefWidth="99.0" style="-fx-alignment: CENTER;" text="Party" />
                             <TableColumn fx:id="seatsCol" prefWidth="78.0" style="-fx-alignment: CENTER;" text="Seats" />

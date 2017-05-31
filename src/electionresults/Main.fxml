@@ -57,11 +57,11 @@
             </Tab>
             <Tab text="Historical Evolution">
               <content>
-                <AnchorPane prefWidth="1104.0">
+                <AnchorPane>
                      <children>
-                        <VBox prefHeight="650.0" prefWidth="1104.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox prefHeight="810.0" prefWidth="1149.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <BarChart fx:id="barChart" title="Participation (%)">
+                              <BarChart fx:id="barChart" title="Participation (%)" VBox.vgrow="ALWAYS">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -72,7 +72,7 @@
                                     <Insets top="10.0" />
                                  </VBox.margin>
                               </BarChart>
-                              <HBox>
+                              <HBox VBox.vgrow="ALWAYS">
                                  <children>
                                     <VBox spacing="10.0">
                                        <children>
