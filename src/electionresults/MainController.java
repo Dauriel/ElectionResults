@@ -197,11 +197,31 @@ public class MainController implements Initializable {
         barData2.setName("Valencia");
         barData1.setName("Comunidad Valenciana");
 
-        for (int i = 0; i < years.length; i++) {
+         for (int i = 0; i < years.length; i++) {
             barData1.getData().add(new XYChart.Data("" + years[i], datos.get(years[i]).getMediaGeneral()));
+            barData1.getData().forEach(data -> {
+                    Label label = new Label( data.getYValue().intValue() + "%");
+                    data.setNode(new StackPane(label));
+                    label.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
+                });
             barData2.getData().add(new XYChart.Data("" + years[i], datos.get(years[i]).getMediaValencia()));
+            barData2.getData().forEach(data -> {
+                    Label label = new Label( data.getYValue().intValue() + "%");
+                    data.setNode(new StackPane(label));
+                    label.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
+                });
             barData3.getData().add(new XYChart.Data("" + years[i], datos.get(years[i]).getMediaCastellon()));
+            barData3.getData().forEach(data -> {
+                    Label label = new Label( data.getYValue().intValue() + "%");
+                    data.setNode(new StackPane(label));
+                    label.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
+                });
             barData4.getData().add(new XYChart.Data("" + years[i], datos.get(years[i]).getMediaAlicante()));
+            barData4.getData().forEach(data -> {
+                    Label label = new Label( data.getYValue().intValue() + "%");
+                    data.setNode(new StackPane(label));
+                    label.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
+                });
         }
 
         auxListaa.add(barData1);
