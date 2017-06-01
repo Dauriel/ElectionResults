@@ -36,6 +36,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.Tab;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -97,6 +98,7 @@ public class MainController implements Initializable {
     private JFXButton UPYD;
     @FXML
     private JFXButton EU;
+    private DropShadow shadow = new DropShadow();
 
     /**
      * Initializes the controller class.
@@ -255,7 +257,7 @@ public class MainController implements Initializable {
                 Map<String, Double> auxMap = mapFinal.get(j);
                 String s = auxBar.getName();
                 if (auxMap.get(s) != null) {
-                    XYChart.Data variable = new XYChart.Data("" + years[j], auxMap.get(s));
+                    XYChart.Data variable = new XYChart.Data("" + years[j], auxMap.get(s));                    
                     auxBar.getData().add(variable);
                 }
             }
@@ -292,6 +294,9 @@ public class MainController implements Initializable {
     @FXML
     private void toggleButton(ActionEvent event) {
         Button i = (Button) event.getSource();
+        if(i.getEffect() != null){
+        i.setEffect(shadow);
+        }else{i.setEffect(null);}
         String s = i.getId();
         Set<String> aux = isInArray(s);
         createStacked(aux, true);
@@ -327,7 +332,7 @@ public class MainController implements Initializable {
     private void initButtons(){
         Image im = Party.PP.getLogo();
         ImageView imview = new ImageView(im);
-        PP.setGraphic(imview);
+        PP.setGraphic(imview);       
         im = Party.PSOE.getLogo();
         imview = new ImageView(im);
         PSOE.setGraphic(imview);
