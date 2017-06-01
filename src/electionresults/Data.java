@@ -243,10 +243,11 @@ public class Data {
                 variable.nodeProperty().addListener(new ChangeListener<Node>() {
                         @Override
                         public void changed(ObservableValue<? extends Node> ov, Node oldNode, Node newNode) {
+                            try{
                             if (newNode != null) {
                                 
                                 newNode.setStyle("-fx-pie-color: " + Party.getPartyByName(partido).getHexColor() + ";");                                
-                            }
+                            }}catch(NullPointerException e){}
 
                         }
                     });
@@ -291,7 +292,7 @@ public class Data {
         return partidosenOrdenAlicante;
     }
 
-    public Map<String, Double> votesPerParty(Set<String> partidos) {
+    public Map<String, Double> seatsPerParty(Set<String> partidos) {
         Map<String, Double> mapFinal = new HashMap<String, Double>();
         for (String aux : partidos) {
             double finalvalue = 0;            
@@ -326,6 +327,41 @@ public class Data {
             for (String s : acron) {
                 if(cvinfo.getPartyResults(s) != null){
                 finalvalue += cvinfo.getPartyResults(s).getSeats();}         
+            }
+            if(finalvalue != 0){
+            mapFinal.put(aux, finalvalue);
+            }
+            
+        }
+        return mapFinal;
+    }
+    public Map<String, Double> votesPerParty(Set<String> partidos) {
+        Map<String, Double> mapFinal = new HashMap<String, Double>();
+        for (String aux : partidos) {
+            double finalvalue = 0;            
+            List<String> acron = new ArrayList<String>();
+            if(aux.equals("PP")){
+            acron = Party.PP.getAcronyms();
+            }if(aux.equals("UV")){
+            acron = Party.UV.getAcronyms();
+            }if(aux.equals("PSOE")){
+            acron = Party.PSOE.getAcronyms();
+            }if(aux.equals("PODEMOS")){
+            acron = Party.PODEMOS.getAcronyms();
+            }if(aux.equals("CS")){
+            acron = Party.CS.getAcronyms();
+            }if(aux.equals("UPYD")){
+            acron = Party.UPYD.getAcronyms();
+            }if(aux.equals("EU")){
+            acron = Party.EU.getAcronyms();
+            }if(aux.equals("COMPROMIS")){
+            acron = Party.COMPROMIS.getAcronyms();
+            }
+            
+            
+            for (String s : acron) {
+                if(cvinfo.getPartyResults(s) != null){
+                finalvalue += cvinfo.getPartyResults(s).getVotes();}         
             }
             if(finalvalue != 0){
             mapFinal.put(aux, finalvalue);

@@ -74,7 +74,7 @@ public class MainController implements Initializable {
     @FXML
     private StackedBarChart<String, Double> stackedBarChart;
     @FXML
-    private LineChart<?, ?> lineChart;
+    private LineChart<String, Double> lineChart;
     @FXML
     private VBox loadingBox;
     @FXML
@@ -142,7 +142,9 @@ public class MainController implements Initializable {
                 barChart.getXAxis().setAnimated(false);
                 stackedBarChart.getXAxis().setAnimated(false);
                 generateBarChart();
-                createStacked(partyNames);
+                createStacked(partyNames, true);
+                
+                createStacked(partyNames, false);
             }
         };
 
@@ -211,11 +213,13 @@ public class MainController implements Initializable {
         barChart.setData(auxListaa);
     }
 
-    private void createStacked(Set<String> partii) {
+    private void createStacked(Set<String> partii, boolean on) {
         Set<String> partyParty = partii;
         ArrayList<Map<String, Double>> mapFinal = new ArrayList<Map<String, Double>>();
         for (Integer i : years) {
-            mapFinal.add(datos.get(i).votesPerParty(partyParty));
+            if(on){
+            mapFinal.add(datos.get(i).seatsPerParty(partyParty));
+            }else{mapFinal.add(datos.get(i).votesPerParty(partyParty));}
         }
         ObservableList<XYChart.Series<String, Double>> auxListaa = FXCollections.observableArrayList();
         ArrayList<XYChart.Series<String, Double>> barDatas = new ArrayList<XYChart.Series<String, Double>>();
@@ -234,24 +238,14 @@ public class MainController implements Initializable {
                 String s = auxBar.getName();
                 if (auxMap.get(s) != null) {
                     XYChart.Data variable = new XYChart.Data("" + years[j], auxMap.get(s));
-                    variable.nodeProperty().addListener(new ChangeListener<Node>() {
-                        @Override
-                        public void changed(ObservableValue<? extends Node> ov, Node oldNode, Node newNode) {
-                            if (newNode != null) {
-                                newNode.setStyle("-fx-bar-fill: " + datos.get(1995).getColor(s) + ";");                                
-                            }
-
-                        }
-                    });
-                    
-                    //System.out.println(variable.getNode().toString());
-                    //variable.getNode().setStyle("fx-bar-fill: navy;"); //Aquí color
                     auxBar.getData().add(variable);
                 }
             }
             auxListaa.add(auxBar);
         }
+        if(on){
         stackedBarChart.setData(auxListaa);
+        }else{lineChart.setData(auxListaa);}
     }
 
     private VBox createTutorialPage(Integer pageIndex) {
@@ -281,7 +275,9 @@ public class MainController implements Initializable {
     private void toggleButton(ActionEvent event) {
         Button i = (Button) event.getSource();
         String s = i.getId();
-        createStacked(isInArray(s));
+        Set<String> aux = isInArray(s);
+        createStacked(aux, true);
+        createStacked(aux, false);
     }
 
     private Set<String> isInArray(String s) {
