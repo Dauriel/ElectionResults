@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.animation.FadeTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -27,6 +29,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.StackedBarChart;
@@ -77,9 +80,9 @@ public class MainController implements Initializable {
     @FXML
     private StackPane stackPane;
     private int[] years = {1995, 1999, 2003, 2007, 2011, 2015};
-    private String[] partyNamesS = {"PP", "PSOE",  "UPYD", "UV", "EU", "COMPROMIS", "CS","PODEMOS"};
-    private String[] partyNamesS2 = {"PP", "PSOE",  "UPYD", "UV", "EU", "COMPROMIS", "CS","PODEMOS"};
-    private Set<String> partyNames = new HashSet<String>(Arrays.asList("PP", "PSOE",  "UPYD", "UV", "EU", "COMPROMIS", "CS","PODEMOS"));
+    private String[] partyNamesS = {"PP", "PSOE", "UPYD", "UV", "EU", "COMPROMIS", "CS", "PODEMOS"};
+    private String[] partyNamesS2 = {"PP", "PSOE", "UPYD", "UV", "EU", "COMPROMIS", "CS", "PODEMOS"};
+    private Set<String> partyNames = new HashSet<String>(Arrays.asList("PP", "PSOE", "UPYD", "UV", "EU", "COMPROMIS", "CS", "PODEMOS"));
     @FXML
     private JFXButton PSOE;
     @FXML
@@ -217,10 +220,10 @@ public class MainController implements Initializable {
         ObservableList<XYChart.Series<String, Double>> auxListaa = FXCollections.observableArrayList();
         ArrayList<XYChart.Series<String, Double>> barDatas = new ArrayList<XYChart.Series<String, Double>>();
         for (String s : partyNamesS) {
-            if(s != null){
-            XYChart.Series<String, Double> auxBar = new XYChart.Series<String, Double>();
-            auxBar.setName(s);
-            barDatas.add(auxBar);
+            if (s != null) {
+                XYChart.Series<String, Double> auxBar = new XYChart.Series<String, Double>();
+                auxBar.setName(s);
+                barDatas.add(auxBar);
             }
         }
 
@@ -230,12 +233,21 @@ public class MainController implements Initializable {
                 Map<String, Double> auxMap = mapFinal.get(j);
                 String s = auxBar.getName();
                 if (auxMap.get(s) != null) {
-                    auxBar.getData().add(new XYChart.Data("" + years[j], auxMap.get(s)));
+                    XYChart.Data variable = new XYChart.Data("" + years[j], auxMap.get(s));
+                    variable.nodeProperty().addListener(new ChangeListener<Node>() {
+                        @Override
+                        public void changed(ObservableValue<? extends Node> ov, Node oldNode, Node newNode) {
+                            if (newNode != null) {
+                                    newNode.setStyle("-fx-bar-fill: " + datos.get(1995).getColor(s) + ";");
+                            }
+                        }
+                    });
+                    //System.out.println(variable.getNode().toString());
+                    //variable.getNode().setStyle("fx-bar-fill: navy;"); //Aquí color
+                    auxBar.getData().add(variable);
                 }
             }
             auxListaa.add(auxBar);
-        }
-        for (XYChart.Series<String, Double> aux : auxListaa) {
         }
         stackedBarChart.setData(auxListaa);
     }
@@ -283,7 +295,7 @@ public class MainController implements Initializable {
         if (pointer != -1) {
             if (partyNamesS[pointer] != null) {
                 partyNamesS[pointer] = null;
-            } else {                
+            } else {
                 partyNamesS[pointer] = s;
             }
             for (int i = 0; i < partyNamesS.length; i++) {

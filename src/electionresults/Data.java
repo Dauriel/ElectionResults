@@ -10,6 +10,7 @@ import electionresults.model.Party;
 import electionresults.model.PartyResults;
 import electionresults.model.RegionResults;
 import electionresults.persistence.io.DataAccessLayer;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,6 +37,7 @@ public class Data {
     private XYChart.Series<String, Integer> barData;
     private RegionResults cvinfo;
     private BarChart<String, Integer> bar;
+    private Map<String, String> color = new HashMap<String, String>();
 
     //PRESCINDIBLES 
     private ArrayList<String> partidosenOrdenGlobal = new ArrayList();
@@ -281,20 +283,28 @@ public class Data {
             List<String> acron = new ArrayList<String>();
             if(aux.equals("PP")){
             acron = Party.PP.getAcronyms();
+            color.put(aux,Party.PP.getHexColor());
             }if(aux.equals("UV")){
             acron = Party.UV.getAcronyms();
+            color.put(aux,Party.UV.getHexColor());
             }if(aux.equals("PSOE")){
             acron = Party.PSOE.getAcronyms();
+            color.put(aux,Party.PSOE.getHexColor());
             }if(aux.equals("PODEMOS")){
             acron = Party.PODEMOS.getAcronyms();
+            color.put(aux,Party.PODEMOS.getHexColor());
             }if(aux.equals("CS")){
             acron = Party.CS.getAcronyms();
+            color.put(aux,Party.CS.getHexColor());
             }if(aux.equals("UPYD")){
             acron = Party.UPYD.getAcronyms();
+            color.put(aux,Party.UPYD.getHexColor());
             }if(aux.equals("EU")){
             acron = Party.EU.getAcronyms();
+            color.put(aux,Party.EU.getHexColor());
             }if(aux.equals("COMPROMIS")){
             acron = Party.COMPROMIS.getAcronyms();
+            color.put(aux,Party.COMPROMIS.getHexColor());
             }
             for (String s : acron) {
                 if(cvinfo.getPartyResults(s) != null){
@@ -307,5 +317,9 @@ public class Data {
         }
         return mapFinal;
     }
-
+    
+    public String getColor(String s){
+        System.out.println(color.toString());
+      return color.get(s);
+    }
 }
