@@ -74,7 +74,7 @@
                               </BarChart>
                               <HBox VBox.vgrow="ALWAYS">
                                  <children>
-                                    <VBox spacing="10.0">
+                                    <VBox alignment="TOP_CENTER" spacing="10.0">
                                        <children>
                                           <JFXButton fx:id="PSOE" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#toggleButton" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
                                              <graphic>
@@ -116,8 +116,14 @@
                                        <HBox.margin>
                                           <Insets left="35.0" />
                                        </HBox.margin>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets top="35.0" />
+                                       </padding>
                                     </VBox>
-                                    <VBox spacing="10.0">
+                                    <VBox alignment="TOP_CENTER" spacing="10.0">
                                        <children>
                                           <JFXButton fx:id="CS" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#toggleButton" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
                                              <graphic>
@@ -159,6 +165,12 @@
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets top="35.0" />
+                                       </padding>
                                     </VBox>
                                     <StackedBarChart fx:id="stackedBarChart" title="Seats" HBox.hgrow="ALWAYS">
                                       <xAxis>
