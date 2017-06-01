@@ -294,7 +294,7 @@ public class MainController implements Initializable {
     @FXML
     private void toggleButton(ActionEvent event) {
         Button i = (Button) event.getSource();
-        if(i.getEffect() != null){
+        if(i.getEffect() == null){
         i.setEffect(shadow);
         }else{i.setEffect(null);}
         String s = i.getId();
@@ -330,30 +330,39 @@ public class MainController implements Initializable {
 
     }
     private void initButtons(){
+        
         Image im = Party.PP.getLogo();
         ImageView imview = new ImageView(im);
-        PP.setGraphic(imview);       
+        PP.setGraphic(imview);
+        PP.setEffect(shadow);
         im = Party.PSOE.getLogo();
         imview = new ImageView(im);
         PSOE.setGraphic(imview);
+        PSOE.setEffect(shadow);
         im = Party.PODEMOS.getLogo();
         imview = new ImageView(im);
         PODEMOS.setGraphic(imview);
+        PODEMOS.setEffect(shadow);
         im = Party.COMPROMIS.getLogo();
         imview = new ImageView(im);
         COMPROMIS.setGraphic(imview);
+        COMPROMIS.setEffect(shadow);
         im = Party.CS.getLogo();
         imview = new ImageView(im);
         CS.setGraphic(imview);
+        CS.setEffect(shadow);
         im = Party.UV.getLogo();
         imview = new ImageView(im);
          UV.setGraphic(imview);
+         UV.setEffect(shadow);
         im = Party.UPYD.getLogo();
         imview = new ImageView(im);
         UPYD.setGraphic(imview);
+        UPYD.setEffect(shadow);
         im = Party.EU.getLogo();
         imview = new ImageView(im);
         EU.setGraphic(imview);
+        EU.setEffect(shadow);
     }
 
 }
