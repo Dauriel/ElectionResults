@@ -76,7 +76,7 @@
                                  <children>
                                     <VBox alignment="TOP_CENTER" spacing="10.0">
                                        <children>
-                                          <JFXButton fx:id="PSOE" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#toggleButton" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
+                                          <JFXButton fx:id="PSOE" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#toggleButton" prefHeight="40.0" prefWidth="50.0" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
                                              <graphic>
                                                 <ImageView pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -85,7 +85,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </JFXButton>
-                                          <JFXButton fx:id="PP" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#toggleButton" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
+                                          <JFXButton fx:id="PP" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#toggleButton" prefHeight="40.0" prefWidth="50.0" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
                                              <graphic>
                                                 <ImageView pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -94,7 +94,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </JFXButton>
-                                          <JFXButton fx:id="PODEMOS" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#toggleButton" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
+                                          <JFXButton fx:id="PODEMOS" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#toggleButton" prefHeight="40.0" prefWidth="50.0" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
                                              <graphic>
                                                 <ImageView pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -103,7 +103,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </JFXButton>
-                                          <JFXButton fx:id="COMPROMIS" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#toggleButton" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
+                                          <JFXButton fx:id="COMPROMIS" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#toggleButton" prefHeight="40.0" prefWidth="50.0" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
                                              <graphic>
                                                 <ImageView pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -125,7 +125,7 @@
                                     </VBox>
                                     <VBox alignment="TOP_CENTER" spacing="10.0">
                                        <children>
-                                          <JFXButton fx:id="CS" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#toggleButton" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
+                                          <JFXButton fx:id="CS" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#toggleButton" prefHeight="40.0" prefWidth="50.0" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
                                              <graphic>
                                                 <ImageView pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -134,7 +134,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </JFXButton>
-                                          <JFXButton fx:id="UV" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#toggleButton" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
+                                          <JFXButton fx:id="UV" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#toggleButton" prefHeight="40.0" prefWidth="50.0" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
                                              <graphic>
                                                 <ImageView pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -143,7 +143,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </JFXButton>
-                                          <JFXButton fx:id="UPYD" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#toggleButton" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
+                                          <JFXButton fx:id="UPYD" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#toggleButton" prefHeight="40.0" prefWidth="50.0" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
                                              <graphic>
                                                 <ImageView pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -152,7 +152,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </JFXButton>
-                                          <JFXButton fx:id="EU" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#toggleButton" prefHeight="39.0" prefWidth="50.0" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
+                                          <JFXButton fx:id="EU" alignment="TOP_CENTER" buttonType="RAISED" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#toggleButton" prefHeight="40.0" prefWidth="50.0" ripplerFill="#008f81" style="-fx-background-color: #e0dff8;">
                                              <graphic>
                                                 <ImageView pickOnBounds="true" preserveRatio="true">
                                                    <image>
