@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTabPane;
 import electionresults.model.ElectionResults;
+import electionresults.model.Party;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,8 +21,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.animation.FadeTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -29,7 +28,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.StackedBarChart;
@@ -142,9 +140,9 @@ public class MainController implements Initializable {
                 barChart.getXAxis().setAnimated(false);
                 stackedBarChart.getXAxis().setAnimated(false);
                 generateBarChart();
-                createStacked(partyNames, true);
-                
+                createStacked(partyNames, true);                
                 createStacked(partyNames, false);
+                initButtons();
             }
         };
 
@@ -305,6 +303,32 @@ public class MainController implements Initializable {
         }
         return auxil;
 
+    }
+    private void initButtons(){
+        Image im = Party.PP.getLogo();
+        ImageView imview = new ImageView(im);
+        PP.setGraphic(imview);
+        im = Party.PSOE.getLogo();
+        imview = new ImageView(im);
+        PSOE.setGraphic(imview);
+        im = Party.PODEMOS.getLogo();
+        imview = new ImageView(im);
+        PODEMOS.setGraphic(imview);
+        im = Party.COMPROMIS.getLogo();
+        imview = new ImageView(im);
+        COMPROMIS.setGraphic(imview);
+        im = Party.CS.getLogo();
+        imview = new ImageView(im);
+        CS.setGraphic(imview);
+        im = Party.UV.getLogo();
+        imview = new ImageView(im);
+         UV.setGraphic(imview);
+        im = Party.UPYD.getLogo();
+        imview = new ImageView(im);
+        UPYD.setGraphic(imview);
+        im = Party.EU.getLogo();
+        imview = new ImageView(im);
+        EU.setGraphic(imview);
     }
 
 }
