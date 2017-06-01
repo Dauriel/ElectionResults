@@ -218,6 +218,8 @@ public class DashboardController extends HBox {
                 currentBar = d.getPartyResultsAlicante();
                 bar.setData(d.getBarData(currentBar, currentLabel, PERCENT));
             }
+            setSummaryTableData(d.getPoll(currentLabel));
+            setTableData(currentBar.get(currentLabel));
             bar.setTitle("Party votes in " + regionSelected);
         }
     }
@@ -392,6 +394,7 @@ public class DashboardController extends HBox {
         ObservableList<PartyResults> auxList = FXCollections.observableArrayList(listaResultados);
         partyTable.setItems(auxList);
     }
+
     private void setSummaryTableData(PollData poll) {
         int census = poll.getCensus();
         int votes = poll.getVotes();

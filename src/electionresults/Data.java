@@ -8,6 +8,7 @@ package electionresults;
 import electionresults.model.ElectionResults;
 import electionresults.model.Party;
 import electionresults.model.PartyResults;
+import electionresults.model.PollData;
 import electionresults.model.RegionResults;
 import electionresults.persistence.io.DataAccessLayer;
 import java.util.ArrayList;
@@ -66,6 +67,10 @@ public class Data {
     private Set<String> alicante = new HashSet<String>();
     private double mediaGeneral, mediaValencia, mediaCastellon, mediaAlicante;
     private RegionResults regionValencia;
+    
+    private RegionResults regionCastellon;
+    private RegionResults regionAlicante;
+
 
     public RegionResults getRegionValencia() {
         return regionValencia;
@@ -78,9 +83,6 @@ public class Data {
     public RegionResults getRegionAlicante() {
         return regionAlicante;
     }
-    private RegionResults regionCastellon;
-    private RegionResults regionAlicante;
-
     public List<PartyResults> getPartyValencia() {
         return partyValencia;
     }
@@ -375,8 +377,8 @@ public class Data {
         System.out.println(color.toString());
       return color.get(s);
     }
-    /*public String acc(String s){
-        
-       return partyAc.get(s);
-    }*/
+    
+    public PollData getPoll(String aux){
+       return electionResult.getRegionResults(aux).getPollData();
+    }
 }

@@ -53,9 +53,9 @@
                      <children>
                         <TableView fx:id="summaryTable" prefHeight="243.0" prefWidth="299.0" stylesheets="@tableview.css">
                           <columns>
-                            <TableColumn fx:id="summaryCol" prefWidth="95.0" text="Summary" />
-                            <TableColumn fx:id="numbersCol" prefWidth="126.0" />
-                              <TableColumn fx:id="totalpercentageCol" prefWidth="112.0" />
+                            <TableColumn fx:id="summaryCol" prefWidth="95.0" style="-fx-alignment: CENTER;" text="Summary" />
+                            <TableColumn fx:id="numbersCol" prefWidth="126.0" style="-fx-alignment: CENTER;" />
+                              <TableColumn fx:id="totalpercentageCol" prefWidth="112.0" style="-fx-alignment: CENTER;" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
