@@ -238,10 +238,12 @@ public class MainController implements Initializable {
                         @Override
                         public void changed(ObservableValue<? extends Node> ov, Node oldNode, Node newNode) {
                             if (newNode != null) {
-                                    newNode.setStyle("-fx-bar-fill: " + datos.get(1995).getColor(s) + ";");
+                                newNode.setStyle("-fx-bar-fill: " + datos.get(1995).getColor(s) + ";");                                
                             }
+
                         }
                     });
+                    
                     //System.out.println(variable.getNode().toString());
                     //variable.getNode().setStyle("fx-bar-fill: navy;"); //Aquí color
                     auxBar.getData().add(variable);

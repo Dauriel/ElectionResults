@@ -10,15 +10,17 @@ import electionresults.model.Party;
 import electionresults.model.PartyResults;
 import electionresults.model.RegionResults;
 import electionresults.persistence.io.DataAccessLayer;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
@@ -171,6 +173,8 @@ public class Data {
         partyComunidades.put("Valencia", electionResult.getProvinceResults("Valencia").getPartyResultsSorted());
         partyComunidades.put("Castellon", electionResult.getProvinceResults("Castellón").getPartyResultsSorted());
         partyComunidades.put("Alicante", electionResult.getProvinceResults("Alicante").getPartyResultsSorted());
+        
+        
     }
 
     public double getMediaGeneral() {
@@ -235,7 +239,18 @@ public class Data {
             String partido = orden.get(i);
             int seats = aux.get(partido);
             if (seats > 0) {
-                pieData.add(new PieChart.Data(partido + " (" + seats + ")", seats));
+                PieChart.Data variable = new PieChart.Data(partido + " (" + seats + ")", seats);                
+                variable.nodeProperty().addListener(new ChangeListener<Node>() {
+                        @Override
+                        public void changed(ObservableValue<? extends Node> ov, Node oldNode, Node newNode) {
+                            if (newNode != null) {
+                                
+                                newNode.setStyle("-fx-pie-color: " + Party.getPartyByName(partido).getHexColor() + ";");                                
+                            }
+
+                        }
+                    });
+                pieData.add(variable);
             }
         }
         return pieData;
@@ -306,6 +321,8 @@ public class Data {
             acron = Party.COMPROMIS.getAcronyms();
             color.put(aux,Party.COMPROMIS.getHexColor());
             }
+            
+            
             for (String s : acron) {
                 if(cvinfo.getPartyResults(s) != null){
                 finalvalue += cvinfo.getPartyResults(s).getSeats();}         
@@ -322,4 +339,8 @@ public class Data {
         System.out.println(color.toString());
       return color.get(s);
     }
+    /*public String acc(String s){
+        
+       return partyAc.get(s);
+    }*/
 }
